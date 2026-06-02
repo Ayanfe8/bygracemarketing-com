@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { notifyLead } from "@/lib/notify-lead.functions";
 
 const STORAGE_KEY = "dfy-rate-card-unlocked";
 
@@ -80,6 +81,12 @@ export function PricingUnlockProvider({ children }: { children: ReactNode }) {
       toast.error("Couldn't unlock. Please check your details and try again.");
       return;
     }
+
+    // Fire-and-forget email notification to Grace
+    notifyLead({ data: { name, email, business, source } }).catch((err: unknown) => {
+      console.error("Lead notification email failed:", err);
+    });
+
 
     localStorage.setItem(STORAGE_KEY, "1");
     setUnlocked(true);
