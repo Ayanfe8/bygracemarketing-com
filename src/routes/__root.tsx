@@ -79,21 +79,52 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Done For You by Grace — Marketing That Grows Your Business" },
+      {
+        name: "description",
+        content:
+          "Full-service marketing for small businesses. Brand strategy, LinkedIn optimisation, email marketing, lead generation and design — done for you.",
+      },
+      { name: "author", content: "Done For You by Grace" },
+      { property: "og:title", content: "Done For You by Grace — Marketing That Grows Your Business" },
+      {
+        property: "og:description",
+        content:
+          "Full-service marketing for small businesses. Brand strategy, LinkedIn optimisation, email marketing, lead generation and design — done for you.",
+      },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:site_name", content: "Done For You by Grace" },
+      { property: "og:image", content: logoAsset.url },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: logoAsset.url },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
+      {
+        rel: "icon",
+        type: "image/png",
+        href: logoAsset.url,
+      },
+      {
+        rel: "apple-touch-icon",
+        href: logoAsset.url,
+      },
     ],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Done For You by Grace",
+        url: "https://project--267ab46a-509d-47be-99fe-58a2723e83bd.lovable.app",
+        logo: logoAsset.url,
+        email: "bookingswithgrace@gmail.com",
+        description: "Full-service marketing for small businesses.",
+      }),
+    }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
