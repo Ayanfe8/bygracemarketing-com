@@ -14,10 +14,14 @@ import { toast } from "sonner";
 const STORAGE_KEY = "dfy-rate-card-unlocked";
 
 export const rateCards = [
-  { file: "DFY-by-Grace_Rate-Card_Comparison.pdf", label: "Full Comparison Rate Card" },
-  { file: "DFY-by-Grace_Rate-Card_Starter.pdf", label: "Starter Support — ₦150,000/mo" },
-  { file: "DFY-by-Grace_Rate-Card_Growth.pdf", label: "Growth Support — ₦350,000/mo" },
-  { file: "DFY-by-Grace_Rate-Card_Premium.pdf", label: "Premium Support — ₦650,000/mo" },
+  { file: "DFY-by-Grace_Rate-Card_Comparison.pdf", label: "Naira — Full Comparison Rate Card" },
+  { file: "DFY-by-Grace_Rate-Card_Starter.pdf", label: "Naira — Starter Support (₦150,000/mo)" },
+  { file: "DFY-by-Grace_Rate-Card_Growth.pdf", label: "Naira — Growth Support (₦350,000/mo)" },
+  { file: "DFY-by-Grace_Rate-Card_Premium.pdf", label: "Naira — Premium Support (₦650,000/mo)" },
+  { file: "DFY-by-Grace_Rate-Card_Comparison_USD.pdf", label: "USD — Full Comparison Rate Card (International)" },
+  { file: "DFY-by-Grace_Rate-Card_Starter_USD.pdf", label: "USD — Starter Support ($170/mo)" },
+  { file: "DFY-by-Grace_Rate-Card_Growth_USD.pdf", label: "USD — Growth Support ($300/mo)" },
+  { file: "DFY-by-Grace_Rate-Card_Premium_USD.pdf", label: "USD — Premium Support ($500/mo)" },
 ];
 
 type UnlockCtx = {
