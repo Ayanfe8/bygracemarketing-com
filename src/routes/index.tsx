@@ -798,7 +798,7 @@ function LandingInner() {
               <span>bookingswithgrace@gmail.com</span>
             </a>
             <a
-              href="https://wa.me/?text=Hi%20Grace%2C%20I%27d%20love%20to%20chat%20about%20marketing%20support."
+              href="https://wa.link/z1qjtl"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent("whatsapp_click", { location: "contact_section" })}
