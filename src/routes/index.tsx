@@ -90,6 +90,8 @@ const packages = [
   {
     name: "Starter Support",
     tag: "Foundations",
+    price: "₦150,000",
+    cadence: "/month",
     desc: "For businesses that need simple brand and marketing improvements.",
     features: ["Brand messaging refresh", "Basic design support", "Social media direction", "LinkedIn optimisation"],
   },
@@ -97,6 +99,8 @@ const packages = [
     name: "Growth Support",
     tag: "Most popular",
     featured: true,
+    price: "₦350,000",
+    cadence: "/month",
     desc: "For businesses that need consistent marketing execution.",
     features: [
       "Brand & content strategy",
@@ -109,6 +113,8 @@ const packages = [
   {
     name: "Premium Support",
     tag: "Full service",
+    price: "₦650,000",
+    cadence: "/month",
     desc: "For businesses that need full marketing execution, ongoing.",
     features: [
       "Brand strategy & positioning",
@@ -117,6 +123,45 @@ const packages = [
       "Lead generation systems",
       "Campaign & design support",
     ],
+  },
+];
+
+const comparison = [
+  { feature: "Brand messaging & positioning", starter: "Basic refresh", growth: "Full strategy", premium: "Full strategy + repositioning" },
+  { feature: "Graphic design assets", starter: "2 / month", growth: "6 / month", premium: "Unlimited requests" },
+  { feature: "LinkedIn optimisation", starter: true, growth: true, premium: true },
+  { feature: "Email marketing", starter: false, growth: "Monthly campaign", premium: "Weekly campaigns + automations" },
+  { feature: "Lead generation systems", starter: false, growth: "Guidance only", premium: "Done-for-you setup" },
+  { feature: "Content calendar & captions", starter: "Direction only", growth: "Monthly calendar", premium: "Weekly content + scheduling" },
+  { feature: "Strategy calls", starter: "Quarterly", growth: "Monthly", premium: "Bi-weekly" },
+  { feature: "Turnaround time", starter: "5 working days", growth: "3 working days", premium: "48 hours" },
+  { feature: "Dedicated account manager", starter: false, growth: false, premium: true },
+];
+
+const testimonials = [
+  {
+    quote:
+      "Before working with Grace, my LinkedIn was just sitting there. Within two months, three serious clients reached out — one of them is now on retainer. She really gets it.",
+    name: "Chinonso Okafor",
+    role: "Founder, Lagos-based HR Consultancy",
+  },
+  {
+    quote:
+      "I run a small skincare brand in Abuja and I was tired of posting and getting nothing back. Grace took over the strategy and our DMs have not been the same since. Sales doubled by the third month.",
+    name: "Adaeze Nwosu",
+    role: "CEO, Aṣọ Glow Skincare",
+  },
+  {
+    quote:
+      "Honestly, I was sceptical at first. But the brand refresh and email sequence she set up brought in clients I had been chasing for over a year. Worth every kobo.",
+    name: "Tunde Bakare",
+    role: "Principal Partner, Bakare & Associates",
+  },
+  {
+    quote:
+      "Grace is calm, organised and very strategic. She helped me stop guessing and start showing up properly online. My business finally looks like the business I always knew it could be.",
+    name: "Folake Adeyemi",
+    role: "Interior Designer, Ibadan",
   },
 ];
 
@@ -370,6 +415,10 @@ function Landing() {
                 <h3 className={`mt-3 font-serif text-3xl ${p.featured ? "text-primary-foreground" : "text-primary"}`}>
                   {p.name}
                 </h3>
+                <div className="mt-4 flex items-baseline gap-1">
+                  <span className={`font-serif text-4xl ${p.featured ? "text-gold" : "text-primary"}`}>{p.price}</span>
+                  <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.cadence}</span>
+                </div>
                 <p className={`mt-3 text-sm ${p.featured ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                   {p.desc}
                 </p>
@@ -396,6 +445,96 @@ function Landing() {
           </div>
         </div>
       </section>
+
+      {/* Comparison table */}
+      <section className="pb-24 lg:pb-32">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="text-xs uppercase tracking-[0.25em] text-gold">Compare plans</div>
+            <h2 className="mt-3 font-serif text-4xl md:text-5xl text-primary">See what's included.</h2>
+            <p className="mt-4 text-muted-foreground">A side-by-side look at how each package supports your business.</p>
+          </div>
+
+          <div className="mt-12 overflow-x-auto rounded-2xl border border-border bg-card shadow-soft">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-primary text-primary-foreground">
+                <tr>
+                  <th className="px-6 py-5 font-medium">Feature</th>
+                  <th className="px-6 py-5 font-medium text-center">Starter</th>
+                  <th className="px-6 py-5 font-medium text-center bg-navy-deep">
+                    <span className="block">Growth</span>
+                    <span className="text-[10px] uppercase tracking-widest text-gold">Most popular</span>
+                  </th>
+                  <th className="px-6 py-5 font-medium text-center">Premium</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparison.map((row, idx) => (
+                  <tr key={row.feature} className={idx % 2 === 0 ? "bg-background/50" : ""}>
+                    <td className="px-6 py-4 font-medium text-primary">{row.feature}</td>
+                    {(["starter", "growth", "premium"] as const).map((tier) => {
+                      const val = row[tier];
+                      return (
+                        <td key={tier} className="px-6 py-4 text-center text-muted-foreground">
+                          {typeof val === "boolean" ? (
+                            val ? (
+                              <Check className="inline h-4 w-4 text-gold" />
+                            ) : (
+                              <span className="text-border">—</span>
+                            )
+                          ) : (
+                            val
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+                <tr className="bg-background/50">
+                  <td className="px-6 py-5 font-serif text-primary">Monthly investment</td>
+                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦150,000</td>
+                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦350,000</td>
+                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦650,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-xs text-center text-muted-foreground">
+            Custom packages available on request. International clients billed in USD equivalent.
+          </p>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-muted/40 py-24 lg:py-32">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="text-xs uppercase tracking-[0.25em] text-gold">Client love</div>
+            <h2 className="mt-3 font-serif text-4xl md:text-5xl text-primary">What clients are saying.</h2>
+            <p className="mt-4 text-muted-foreground">Real results from founders and business owners across Nigeria.</p>
+          </div>
+
+          <div className="mt-14 grid md:grid-cols-2 gap-6">
+            {testimonials.map((t) => (
+              <figure
+                key={t.name}
+                className="rounded-2xl bg-card border border-border p-8 shadow-soft flex flex-col"
+              >
+                <div className="text-gold text-3xl font-serif leading-none">"</div>
+                <blockquote className="mt-2 text-base text-foreground/90 italic leading-relaxed flex-1">
+                  {t.quote}
+                </blockquote>
+                <figcaption className="mt-6 pt-6 border-t border-border">
+                  <div className="font-serif text-primary text-lg">{t.name}</div>
+                  <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">{t.role}</div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
 
       {/* Big CTA */}
       <section className="bg-primary text-primary-foreground py-24">
