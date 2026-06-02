@@ -17,6 +17,9 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PricingUnlockProvider, usePricingUnlock, rateCards } from "@/components/pricing-unlock";
+import { supabase } from "@/integrations/supabase/client";
+import { notifyLead } from "@/lib/notify-lead.functions";
+import { toast } from "sonner";
 import logoAsset from "@/assets/dfy-logo.png.asset.json";
 import heroAsset from "@/assets/grace-mac.jpg.asset.json";
 const heroImg = heroAsset.url;
@@ -193,6 +196,42 @@ function Landing() {
 
 function LandingInner() {
   const [open, setOpen] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: "", email: "", business: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (submitting) return;
+    const name = contactForm.name.trim();
+    const email = contactForm.email.trim();
+    const business = contactForm.business.trim();
+    const message = contactForm.message.trim();
+    if (!name || !email || !message) {
+      toast.error("Please fill in your name, email, and message.");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from("pricing_leads").insert({
+        name,
+        email,
+        business: business || null,
+        message,
+        source: "contact_form",
+      });
+      if (error) throw error;
+      notifyLead({
+        data: { name, email, business: business || null, message, source: "contact_form" },
+      }).catch((err) => console.error("notifyLead failed", err));
+      setOpen(true);
+      setContactForm({ name: "", email: "", business: "", message: "" });
+    } catch (err) {
+      console.error("Contact submit failed", err);
+      toast.error("Something went wrong. Please try again or email us directly.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
   const { unlocked, openGate } = usePricingUnlock();
 
   return (
@@ -688,22 +727,42 @@ function LandingInner() {
           </div>
 
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setOpen(true);
-            }}
+            onSubmit={handleContactSubmit}
             className="mt-12 rounded-2xl border border-border bg-card p-8 shadow-soft space-y-5"
           >
             <div className="grid sm:grid-cols-2 gap-5">
               <Field label="Your name" required>
-                <input required type="text" className="input-base" placeholder="Jane Doe" />
+                <input
+                  required
+                  type="text"
+                  className="input-base"
+                  placeholder="Jane Doe"
+                  value={contactForm.name}
+                  onChange={(e) => setContactForm((f) => ({ ...f, name: e.target.value }))}
+                  maxLength={120}
+                />
               </Field>
               <Field label="Email" required>
-                <input required type="email" className="input-base" placeholder="jane@business.com" />
+                <input
+                  required
+                  type="email"
+                  className="input-base"
+                  placeholder="jane@business.com"
+                  value={contactForm.email}
+                  onChange={(e) => setContactForm((f) => ({ ...f, email: e.target.value }))}
+                  maxLength={255}
+                />
               </Field>
             </div>
             <Field label="Business name">
-              <input type="text" className="input-base" placeholder="Acme Co." />
+              <input
+                type="text"
+                className="input-base"
+                placeholder="Acme Co."
+                value={contactForm.business}
+                onChange={(e) => setContactForm((f) => ({ ...f, business: e.target.value }))}
+                maxLength={200}
+              />
             </Field>
             <Field label="What do you need help with?" required>
               <textarea
@@ -711,11 +770,14 @@ function LandingInner() {
                 rows={4}
                 className="input-base resize-none"
                 placeholder="A few sentences about your business and where you'd like support…"
+                value={contactForm.message}
+                onChange={(e) => setContactForm((f) => ({ ...f, message: e.target.value }))}
+                maxLength={2000}
               />
             </Field>
-            <Button type="submit" size="lg" className="w-full bg-primary hover:bg-navy-deep text-primary-foreground rounded-full h-12">
+            <Button type="submit" size="lg" disabled={submitting} className="w-full bg-primary hover:bg-navy-deep text-primary-foreground rounded-full h-12">
               <Calendar className="mr-2 h-4 w-4" />
-              Request my free consultation
+              {submitting ? "Sending…" : "Request my free consultation"}
             </Button>
             {open && (
               <p className="text-sm text-center text-gold mt-2">

@@ -9,6 +9,7 @@ const LeadSchema = z.object({
   email: z.string().email().max(255),
   business: z.string().max(200).nullable().optional(),
   source: z.string().max(60).optional(),
+  message: z.string().max(2000).nullable().optional(),
 });
 
 function encodeRaw(to: string, subject: string, html: string): string {
@@ -35,15 +36,27 @@ export const notifyLead = createServerFn({ method: "POST" })
 
     const business = data.business?.trim() || "—";
     const source = data.source || "pricing";
-    const subject = `New rate-card lead: ${data.name}`;
+    const message = data.message?.trim() || "";
+    const isContact = source === "contact_form";
+    const subject = isContact
+      ? `New consultation request: ${data.name}`
+      : `New rate-card lead: ${data.name}`;
+    const heading = isContact ? "New consultation request" : "New rate-card unlock";
+    const intro = isContact
+      ? "Someone just requested a free consultation from your site."
+      : "Someone just unlocked your DFY by Grace pricing.";
+    const messageRow = message
+      ? `<tr><td style="padding:8px 0; color:#64748b; vertical-align:top;">Message</td><td style="padding:8px 0; white-space:pre-wrap;">${escapeHtml(message)}</td></tr>`
+      : "";
     const html = `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 560px; padding: 24px; color: #0f1b3d;">
-        <h2 style="margin:0 0 16px; color:#0f1b3d;">New rate-card unlock</h2>
-        <p style="margin:0 0 20px; color:#475569;">Someone just unlocked your DFY by Grace pricing.</p>
+        <h2 style="margin:0 0 16px; color:#0f1b3d;">${heading}</h2>
+        <p style="margin:0 0 20px; color:#475569;">${intro}</p>
         <table style="width:100%; border-collapse:collapse; font-size:14px;">
           <tr><td style="padding:8px 0; color:#64748b; width:120px;">Name</td><td style="padding:8px 0; font-weight:600;">${escapeHtml(data.name)}</td></tr>
           <tr><td style="padding:8px 0; color:#64748b;">Email</td><td style="padding:8px 0;"><a href="mailto:${escapeHtml(data.email)}" style="color:#c9a84c;">${escapeHtml(data.email)}</a></td></tr>
           <tr><td style="padding:8px 0; color:#64748b;">Business</td><td style="padding:8px 0;">${escapeHtml(business)}</td></tr>
+          ${messageRow}
           <tr><td style="padding:8px 0; color:#64748b;">Source</td><td style="padding:8px 0;">${escapeHtml(source)}</td></tr>
           <tr><td style="padding:8px 0; color:#64748b;">Time</td><td style="padding:8px 0;">${new Date().toUTCString()}</td></tr>
         </table>
