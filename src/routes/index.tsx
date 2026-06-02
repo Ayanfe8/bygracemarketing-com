@@ -429,8 +429,22 @@ function LandingInner() {
                   {p.name}
                 </h3>
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className={`font-serif text-4xl ${p.featured ? "text-gold" : "text-primary"}`}>{p.price}</span>
-                  <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.cadence}</span>
+                  {unlocked ? (
+                    <>
+                      <span className={`font-serif text-4xl ${p.featured ? "text-gold" : "text-primary"}`}>{p.price}</span>
+                      <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.cadence}</span>
+                    </>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => openGate("pricing-card")}
+                      className={`font-serif text-2xl tracking-widest flex items-center gap-2 hover:opacity-80 transition ${p.featured ? "text-gold" : "text-primary"}`}
+                      aria-label="Unlock pricing"
+                    >
+                      <Lock className="h-4 w-4" />
+                      ₦ • • • • • •
+                    </button>
+                  )}
                 </div>
                 <p className={`mt-3 text-sm ${p.featured ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                   {p.desc}
@@ -444,14 +458,19 @@ function LandingInner() {
                   ))}
                 </ul>
                 <Button
-                  asChild
+                  type="button"
+                  onClick={() => openGate("pricing-card")}
                   className={`mt-8 rounded-full h-11 ${
                     p.featured
                       ? "bg-gold hover:bg-gold/90 text-primary"
                       : "bg-primary hover:bg-navy-deep text-primary-foreground"
                   }`}
                 >
-                  <a href="#contact">Get started</a>
+                  {unlocked ? (
+                    <><Download className="mr-2 h-4 w-4" /> Download rate card</>
+                  ) : (
+                    <><Lock className="mr-2 h-4 w-4" /> Unlock pricing</>
+                  )}
                 </Button>
               </div>
             ))}
