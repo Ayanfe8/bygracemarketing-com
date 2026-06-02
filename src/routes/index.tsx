@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoAsset from "@/assets/dfy-logo.png.asset.json";
-import heroAsset from "@/assets/grace-portrait.jpg.asset.json";
+import heroAsset from "@/assets/grace-mac.jpg.asset.json";
 const heroImg = heroAsset.url;
 
 export const Route = createFileRoute("/")({
