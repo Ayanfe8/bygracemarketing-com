@@ -20,6 +20,7 @@ import { PricingUnlockProvider, usePricingUnlock, rateCards } from "@/components
 import { supabase } from "@/integrations/supabase/client";
 import { notifyLead } from "@/lib/notify-lead.functions";
 import { toast } from "sonner";
+import { trackEvent } from "@/lib/analytics";
 import logoAsset from "@/assets/dfy-logo.png.asset.json";
 import heroAsset from "@/assets/grace-mac.jpg.asset.json";
 const heroImg = heroAsset.url;
@@ -227,6 +228,7 @@ function LandingInner() {
       notifyLead({
         data: { name, email, business: business || null, message, source: "contact_form" },
       }).catch((err) => console.error("notifyLead failed", err));
+      trackEvent("lead_submitted", { source: "contact_form", has_business: Boolean(business) });
       setOpen(true);
       setContactForm({ name: "", email: "", business: "", message: "" });
     } catch (err) {
@@ -795,7 +797,13 @@ function LandingInner() {
               <Mail className="h-4 w-4 text-gold" />
               <span>bookingswithgrace@gmail.com</span>
             </a>
-            <a href="#" className="flex items-center gap-2 hover:text-primary">
+            <a
+              href="https://wa.me/?text=Hi%20Grace%2C%20I%27d%20love%20to%20chat%20about%20marketing%20support."
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { location: "contact_section" })}
+              className="flex items-center gap-2 hover:text-primary"
+            >
               <MessageCircle className="h-4 w-4 text-gold" /> WhatsApp
             </a>
           </div>

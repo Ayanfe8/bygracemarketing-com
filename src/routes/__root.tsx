@@ -113,18 +113,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: logoAsset.url,
       },
     ],
-    scripts: [{
-      type: "application/ld+json",
-      children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        name: "Done For You by Grace",
-        url: "https://project--267ab46a-509d-47be-99fe-58a2723e83bd.lovable.app",
-        logo: logoAsset.url,
-        email: "bookingswithgrace@gmail.com",
-        description: "Full-service marketing for small businesses.",
-      }),
-    }],
+    scripts: [
+      ...(import.meta.env.VITE_GA_MEASUREMENT_ID
+        ? [
+            {
+              src: `https://www.googletagmanager.com/gtag/js?id=${import.meta.env.VITE_GA_MEASUREMENT_ID}`,
+              async: true,
+            },
+            {
+              children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${import.meta.env.VITE_GA_MEASUREMENT_ID}',{anonymize_ip:true});`,
+            },
+          ]
+        : []),
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Done For You by Grace",
+          url: "https://project--267ab46a-509d-47be-99fe-58a2723e83bd.lovable.app",
+          logo: logoAsset.url,
+          email: "bookingswithgrace@gmail.com",
+          description: "Full-service marketing for small businesses.",
+        }),
+      },
+    ],
+
   }),
   shellComponent: RootShell,
   component: RootComponent,
