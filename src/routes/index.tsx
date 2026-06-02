@@ -39,9 +39,13 @@ export const Route = createFileRoute("/")({
         content:
           "You run the business. We handle the marketing. Practical, professional, done-for-you support for founders and small businesses.",
       },
+      { property: "og:url", content: "/" },
       { property: "og:image", content: logoAsset.url },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: logoAsset.url },
+    ],
+    links: [
+      { rel: "canonical", href: "/" },
     ],
   }),
   component: Landing,
