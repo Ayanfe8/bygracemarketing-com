@@ -711,7 +711,8 @@ function LandingInner() {
 
           <div className="mt-10 flex items-center justify-center gap-6 text-sm text-muted-foreground">
             <a href="mailto:bookingswithgrace@gmail.com" className="flex items-center gap-2 hover:text-primary">
-              <Mail className="h-4 w-4 text-gold" /> bookingswithgrace@gmail.com
+              <Mail className="h-4 w-4 text-gold" />
+              <span>bookingswithgrace@gmail.com</span>
             </a>
             <a href="#" className="flex items-center gap-2 hover:text-primary">
               <MessageCircle className="h-4 w-4 text-gold" /> WhatsApp
