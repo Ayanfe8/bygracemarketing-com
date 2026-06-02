@@ -95,6 +95,7 @@ const packages = [
     name: "Starter Support",
     tag: "Foundations",
     price: "₦150,000",
+    priceUsd: "$170",
     cadence: "/month",
     desc: "For businesses that need simple brand and marketing improvements.",
     features: ["Brand messaging refresh", "Basic design support", "Social media direction", "LinkedIn optimisation"],
@@ -104,6 +105,7 @@ const packages = [
     tag: "Most popular",
     featured: true,
     price: "₦350,000",
+    priceUsd: "$300",
     cadence: "/month",
     desc: "For businesses that need consistent marketing execution.",
     features: [
@@ -118,6 +120,7 @@ const packages = [
     name: "Premium Support",
     tag: "Full service",
     price: "₦650,000",
+    priceUsd: "$500",
     cadence: "/month",
     desc: "For businesses that need full marketing execution, ongoing.",
     features: [
