@@ -1,0 +1,1 @@
+ALTER TABLE public.pricing_leads ADD COLUMN message text;
