@@ -12,8 +12,11 @@ import {
   Calendar,
   MessageCircle,
   Plus,
+  Lock,
+  Download,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PricingUnlockProvider, usePricingUnlock, rateCards } from "@/components/pricing-unlock";
 import logoAsset from "@/assets/dfy-logo.png.asset.json";
 import heroAsset from "@/assets/grace-mac.jpg.asset.json";
 const heroImg = heroAsset.url;
@@ -178,7 +181,16 @@ const audiences = [
 ];
 
 function Landing() {
+  return (
+    <PricingUnlockProvider>
+      <LandingInner />
+    </PricingUnlockProvider>
+  );
+}
+
+function LandingInner() {
   const [open, setOpen] = useState(false);
+  const { unlocked, openGate } = usePricingUnlock();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -417,8 +429,22 @@ function Landing() {
                   {p.name}
                 </h3>
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className={`font-serif text-4xl ${p.featured ? "text-gold" : "text-primary"}`}>{p.price}</span>
-                  <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.cadence}</span>
+                  {unlocked ? (
+                    <>
+                      <span className={`font-serif text-4xl ${p.featured ? "text-gold" : "text-primary"}`}>{p.price}</span>
+                      <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.cadence}</span>
+                    </>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => openGate("pricing-card")}
+                      className={`font-serif text-2xl tracking-widest flex items-center gap-2 hover:opacity-80 transition ${p.featured ? "text-gold" : "text-primary"}`}
+                      aria-label="Unlock pricing"
+                    >
+                      <Lock className="h-4 w-4" />
+                      ₦ • • • • • •
+                    </button>
+                  )}
                 </div>
                 <p className={`mt-3 text-sm ${p.featured ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                   {p.desc}
@@ -432,14 +458,19 @@ function Landing() {
                   ))}
                 </ul>
                 <Button
-                  asChild
+                  type="button"
+                  onClick={() => openGate("pricing-card")}
                   className={`mt-8 rounded-full h-11 ${
                     p.featured
                       ? "bg-gold hover:bg-gold/90 text-primary"
                       : "bg-primary hover:bg-navy-deep text-primary-foreground"
                   }`}
                 >
-                  <a href="#contact">Get started</a>
+                  {unlocked ? (
+                    <><Download className="mr-2 h-4 w-4" /> Download rate card</>
+                  ) : (
+                    <><Lock className="mr-2 h-4 w-4" /> Unlock pricing</>
+                  )}
                 </Button>
               </div>
             ))}
@@ -493,12 +524,43 @@ function Landing() {
                 ))}
                 <tr className="bg-background/50">
                   <td className="px-6 py-5 font-serif text-primary">Monthly investment</td>
-                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦150,000</td>
-                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦350,000</td>
-                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦650,000</td>
+                  {(["₦150,000", "₦350,000", "₦650,000"] as const).map((price, i) => (
+                    <td key={i} className="px-6 py-5 text-center font-serif text-lg text-primary">
+                      {unlocked ? (
+                        price
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => openGate("comparison-table")}
+                          className="inline-flex items-center gap-2 text-primary/70 hover:text-primary transition"
+                        >
+                          <Lock className="h-4 w-4" /> Unlock
+                        </button>
+                      )}
+                    </td>
+                  ))}
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button
+              type="button"
+              onClick={() => openGate("comparison-cta")}
+              size="lg"
+              className="bg-primary hover:bg-navy-deep text-primary-foreground rounded-full h-12 px-6"
+            >
+              {unlocked ? (
+                <><Download className="mr-2 h-4 w-4" /> Download the full rate card</>
+              ) : (
+                <><Lock className="mr-2 h-4 w-4" /> Get the full rate card</>
+              )}
+            </Button>
+            <p className="text-xs text-muted-foreground">
+              {unlocked
+                ? "All 4 PDFs are available — share them with anyone."
+                : "Free PDF. We'll just need your name and email."}
+            </p>
           </div>
           <p className="mt-4 text-xs text-center text-muted-foreground">
             Custom packages available on request. International clients billed in USD equivalent.
@@ -649,7 +711,8 @@ function Landing() {
 
           <div className="mt-10 flex items-center justify-center gap-6 text-sm text-muted-foreground">
             <a href="mailto:bookingswithgrace@gmail.com" className="flex items-center gap-2 hover:text-primary">
-              <Mail className="h-4 w-4 text-gold" /> bookingswithgrace@gmail.com
+              <Mail className="h-4 w-4 text-gold" />
+              <span>bookingswithgrace@gmail.com</span>
             </a>
             <a href="#" className="flex items-center gap-2 hover:text-primary">
               <MessageCircle className="h-4 w-4 text-gold" /> WhatsApp
