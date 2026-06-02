@@ -11,6 +11,7 @@ import {
   Compass,
   Calendar,
   MessageCircle,
+  Plus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoAsset from "@/assets/dfy-logo.png.asset.json";
