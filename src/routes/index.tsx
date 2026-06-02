@@ -11,6 +11,7 @@ import {
   Compass,
   Calendar,
   MessageCircle,
+  Plus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoAsset from "@/assets/dfy-logo.png.asset.json";
@@ -556,6 +557,43 @@ function Landing() {
               <ArrowRight className="ml-1 h-4 w-4" />
             </a>
           </Button>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="py-24 lg:py-32 bg-muted/40">
+        <div className="mx-auto max-w-3xl px-6">
+          <div className="text-center">
+            <div className="text-xs uppercase tracking-[0.25em] text-gold">FAQs</div>
+            <h2 className="mt-3 font-serif text-4xl md:text-5xl text-primary">
+              Questions, answered.
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              Everything you might be wondering before we start working together.
+            </p>
+          </div>
+
+          <div className="mt-12 divide-y divide-border rounded-3xl border border-border bg-background">
+            {[
+              { q: "How quickly can we get started?", a: "Once you book a free consultation and we agree on a package, we usually kick off within 3 to 5 working days. Onboarding is simple — a short brand questionnaire, one strategy call, and we begin." },
+              { q: "Do I have to sign a long-term contract?", a: "No. All packages run month-to-month. Most clients stay because the results speak for themselves, but you are never locked in." },
+              { q: "What if I am not sure which package fits my business?", a: "That is exactly what the free consultation is for. We will look at where your business is now, what you actually need, and recommend the most sensible starting point — no pressure to upgrade." },
+              { q: "Do you only work with Nigerian businesses?", a: "No. We work with small businesses, founders and consultants across Africa, the UK and beyond. Marketing principles travel — strategy is tailored to your market." },
+              { q: "Will I still need to post and reply to clients myself?", a: "We handle the strategy, design and execution. You stay in charge of your voice and your customer relationships. We make showing up online much lighter — not invisible." },
+              { q: "How do payments work?", a: "Payment is monthly, upfront. We accept bank transfer (Naira) and international transfer for clients outside Nigeria. An invoice is sent before each cycle." },
+              { q: "Can I upgrade or downgrade later?", a: "Yes — anytime. As your business grows, your support should grow with it. Just give us a heads up before the next billing cycle." },
+            ].map((item, i) => (
+              <details key={i} className="group p-6 md:p-7">
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-6">
+                  <span className="font-serif text-lg md:text-xl text-primary">{item.q}</span>
+                  <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-gold transition group-open:rotate-45">
+                    <Plus className="h-4 w-4" />
+                  </span>
+                </summary>
+                <p className="mt-4 text-muted-foreground leading-relaxed">{item.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
