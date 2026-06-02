@@ -9,6 +9,7 @@ const LeadSchema = z.object({
   email: z.string().email().max(255),
   business: z.string().max(200).nullable().optional(),
   source: z.string().max(60).optional(),
+  message: z.string().max(2000).nullable().optional(),
 });
 
 function encodeRaw(to: string, subject: string, html: string): string {
