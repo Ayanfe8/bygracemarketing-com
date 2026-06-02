@@ -83,7 +83,7 @@ export function PricingUnlockProvider({ children }: { children: ReactNode }) {
     }
 
     // Fire-and-forget email notification to Grace
-    notifyLead({ data: { name, email, business, source } }).catch((err) => {
+    notifyLead({ data: { name, email, business, source } }).catch((err: unknown) => {
       console.error("Lead notification email failed:", err);
     });
 
