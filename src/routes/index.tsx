@@ -524,12 +524,43 @@ function LandingInner() {
                 ))}
                 <tr className="bg-background/50">
                   <td className="px-6 py-5 font-serif text-primary">Monthly investment</td>
-                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦150,000</td>
-                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦350,000</td>
-                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦650,000</td>
+                  {(["₦150,000", "₦350,000", "₦650,000"] as const).map((price, i) => (
+                    <td key={i} className="px-6 py-5 text-center font-serif text-lg text-primary">
+                      {unlocked ? (
+                        price
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => openGate("comparison-table")}
+                          className="inline-flex items-center gap-2 text-primary/70 hover:text-primary transition"
+                        >
+                          <Lock className="h-4 w-4" /> Unlock
+                        </button>
+                      )}
+                    </td>
+                  ))}
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button
+              type="button"
+              onClick={() => openGate("comparison-cta")}
+              size="lg"
+              className="bg-primary hover:bg-navy-deep text-primary-foreground rounded-full h-12 px-6"
+            >
+              {unlocked ? (
+                <><Download className="mr-2 h-4 w-4" /> Download the full rate card</>
+              ) : (
+                <><Lock className="mr-2 h-4 w-4" /> Get the full rate card</>
+              )}
+            </Button>
+            <p className="text-xs text-muted-foreground">
+              {unlocked
+                ? "All 4 PDFs are available — share them with anyone."
+                : "Free PDF. We'll just need your name and email."}
+            </p>
           </div>
           <p className="mt-4 text-xs text-center text-muted-foreground">
             Custom packages available on request. International clients billed in USD equivalent.
