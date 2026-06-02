@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoAsset from "@/assets/dfy-logo.png.asset.json";
-import heroAsset from "@/assets/grace-portrait.jpg.asset.json";
+import heroAsset from "@/assets/grace-mac.jpg.asset.json";
 const heroImg = heroAsset.url;
 
 export const Route = createFileRoute("/")({
@@ -471,8 +471,8 @@ function Landing() {
           </form>
 
           <div className="mt-10 flex items-center justify-center gap-6 text-sm text-muted-foreground">
-            <a href="mailto:hello@dfybygrace.com" className="flex items-center gap-2 hover:text-primary">
-              <Mail className="h-4 w-4 text-gold" /> hello@dfybygrace.com
+            <a href="mailto:bookingswithgrace@gmail.com" className="flex items-center gap-2 hover:text-primary">
+              <Mail className="h-4 w-4 text-gold" /> bookingswithgrace@gmail.com
             </a>
             <a href="#" className="flex items-center gap-2 hover:text-primary">
               <MessageCircle className="h-4 w-4 text-gold" /> WhatsApp
