@@ -90,6 +90,8 @@ const packages = [
   {
     name: "Starter Support",
     tag: "Foundations",
+    price: "₦150,000",
+    cadence: "/month",
     desc: "For businesses that need simple brand and marketing improvements.",
     features: ["Brand messaging refresh", "Basic design support", "Social media direction", "LinkedIn optimisation"],
   },
@@ -97,6 +99,8 @@ const packages = [
     name: "Growth Support",
     tag: "Most popular",
     featured: true,
+    price: "₦350,000",
+    cadence: "/month",
     desc: "For businesses that need consistent marketing execution.",
     features: [
       "Brand & content strategy",
@@ -109,6 +113,8 @@ const packages = [
   {
     name: "Premium Support",
     tag: "Full service",
+    price: "₦650,000",
+    cadence: "/month",
     desc: "For businesses that need full marketing execution, ongoing.",
     features: [
       "Brand strategy & positioning",
@@ -117,6 +123,45 @@ const packages = [
       "Lead generation systems",
       "Campaign & design support",
     ],
+  },
+];
+
+const comparison = [
+  { feature: "Brand messaging & positioning", starter: "Basic refresh", growth: "Full strategy", premium: "Full strategy + repositioning" },
+  { feature: "Graphic design assets", starter: "2 / month", growth: "6 / month", premium: "Unlimited requests" },
+  { feature: "LinkedIn optimisation", starter: true, growth: true, premium: true },
+  { feature: "Email marketing", starter: false, growth: "Monthly campaign", premium: "Weekly campaigns + automations" },
+  { feature: "Lead generation systems", starter: false, growth: "Guidance only", premium: "Done-for-you setup" },
+  { feature: "Content calendar & captions", starter: "Direction only", growth: "Monthly calendar", premium: "Weekly content + scheduling" },
+  { feature: "Strategy calls", starter: "Quarterly", growth: "Monthly", premium: "Bi-weekly" },
+  { feature: "Turnaround time", starter: "5 working days", growth: "3 working days", premium: "48 hours" },
+  { feature: "Dedicated account manager", starter: false, growth: false, premium: true },
+];
+
+const testimonials = [
+  {
+    quote:
+      "Before working with Grace, my LinkedIn was just sitting there. Within two months, three serious clients reached out — one of them is now on retainer. She really gets it.",
+    name: "Chinonso Okafor",
+    role: "Founder, Lagos-based HR Consultancy",
+  },
+  {
+    quote:
+      "I run a small skincare brand in Abuja and I was tired of posting and getting nothing back. Grace took over the strategy and our DMs have not been the same since. Sales doubled by the third month.",
+    name: "Adaeze Nwosu",
+    role: "CEO, Aṣọ Glow Skincare",
+  },
+  {
+    quote:
+      "Honestly, I was sceptical at first. But the brand refresh and email sequence she set up brought in clients I had been chasing for over a year. Worth every kobo.",
+    name: "Tunde Bakare",
+    role: "Principal Partner, Bakare & Associates",
+  },
+  {
+    quote:
+      "Grace is calm, organised and very strategic. She helped me stop guessing and start showing up properly online. My business finally looks like the business I always knew it could be.",
+    name: "Folake Adeyemi",
+    role: "Interior Designer, Ibadan",
   },
 ];
 
