@@ -7,7 +7,6 @@ import {
   Linkedin,
   Target,
   Sparkles,
-  TrendingUp,
   PenTool,
   Compass,
   Calendar,
