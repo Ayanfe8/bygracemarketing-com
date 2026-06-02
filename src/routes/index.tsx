@@ -14,7 +14,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoAsset from "@/assets/dfy-logo.png.asset.json";
-import heroImg from "@/assets/hero-marketing.jpg";
+import heroAsset from "@/assets/grace-portrait.jpg.asset.json";
+const heroImg = heroAsset.url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -196,7 +197,7 @@ function Landing() {
 
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-elegant">
-              <img src={heroImg} alt="Founder focused on her business while marketing runs in the background" className="h-full w-full object-cover" />
+              <img src={heroImg} alt="Grace, founder of Done For You by Grace" className="h-full w-full object-cover object-top" />
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent" />
             </div>
             <div className="absolute -bottom-6 -left-6 bg-card rounded-2xl p-5 shadow-soft border border-border w-56 hidden sm:block">
