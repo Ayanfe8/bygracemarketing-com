@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const NOTIFY_TO = "bookingswithgrace@gmail.com";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/google_mail/gmail/v1";
@@ -21,7 +22,6 @@ function encodeRaw(to: string, subject: string, html: string): string {
     "",
     html,
   ].join("\r\n");
-  // Base64url encode (handle unicode safely)
   const b64 = Buffer.from(message, "utf-8").toString("base64");
   return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
@@ -31,8 +31,39 @@ export const notifyLead = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const lovableKey = process.env.LOVABLE_API_KEY;
     const gmailKey = process.env.GOOGLE_MAIL_API_KEY;
-    if (!lovableKey) throw new Error("LOVABLE_API_KEY is not configured");
-    if (!gmailKey) throw new Error("GOOGLE_MAIL_API_KEY is not configured");
+    if (!lovableKey) {
+      console.error("Server config error: LOVABLE_API_KEY missing");
+      throw new Error("Service temporarily unavailable");
+    }
+    if (!gmailKey) {
+      console.error("Server config error: GOOGLE_MAIL_API_KEY missing");
+      throw new Error("Service temporarily unavailable");
+    }
+
+    const emailLower = data.email.toLowerCase().trim();
+    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+
+    const { count: sameEmailCount } = await supabaseAdmin
+      .from("pricing_leads")
+      .select("id", { count: "exact", head: true })
+      .eq("email", emailLower)
+      .gte("created_at", tenMinutesAgo);
+
+    if (sameEmailCount && sameEmailCount > 0) {
+      console.warn("Rate limit hit for email:", emailLower);
+      throw new Error("Please wait a few minutes before submitting again.");
+    }
+
+    const { count: globalCount } = await supabaseAdmin
+      .from("pricing_leads")
+      .select("id", { count: "exact", head: true })
+      .gte("created_at", fiveMinutesAgo);
+
+    if (globalCount && globalCount >= 10) {
+      console.warn("Global rate limit hit. Count:", globalCount);
+      throw new Error("Service temporarily unavailable");
+    }
 
     const business = data.business?.trim() || "—";
     const source = data.source || "pricing";
@@ -79,7 +110,7 @@ export const notifyLead = createServerFn({ method: "POST" })
     if (!res.ok) {
       const text = await res.text().catch(() => "");
       console.error("Gmail send failed:", res.status, text);
-      throw new Error(`Gmail send failed (${res.status})`);
+      throw new Error("Service temporarily unavailable");
     }
 
     return { ok: true };
