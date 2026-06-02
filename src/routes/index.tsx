@@ -196,6 +196,42 @@ function Landing() {
 
 function LandingInner() {
   const [open, setOpen] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: "", email: "", business: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (submitting) return;
+    const name = contactForm.name.trim();
+    const email = contactForm.email.trim();
+    const business = contactForm.business.trim();
+    const message = contactForm.message.trim();
+    if (!name || !email || !message) {
+      toast.error("Please fill in your name, email, and message.");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from("pricing_leads").insert({
+        name,
+        email,
+        business: business || null,
+        message,
+        source: "contact_form",
+      });
+      if (error) throw error;
+      notifyLead({
+        data: { name, email, business: business || null, message, source: "contact_form" },
+      }).catch((err) => console.error("notifyLead failed", err));
+      setOpen(true);
+      setContactForm({ name: "", email: "", business: "", message: "" });
+    } catch (err) {
+      console.error("Contact submit failed", err);
+      toast.error("Something went wrong. Please try again or email us directly.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
   const { unlocked, openGate } = usePricingUnlock();
 
   return (
