@@ -154,13 +154,13 @@ const testimonials = [
   {
     quote:
       "Honestly, I was sceptical at first. But the brand refresh and email sequence she set up brought in clients I had been chasing for over a year. Worth every kobo.",
-    name: "Tunde",
+    name: "Alfred",
     role: "Principal Partner",
   },
   {
     quote:
       "Grace is calm, organised and very strategic. She helped me stop guessing and start showing up properly online. My business finally looks like the business I always knew it could be.",
-    name: "Folake",
+    name: "Esther",
     role: "Interior Designer",
   },
 ];
