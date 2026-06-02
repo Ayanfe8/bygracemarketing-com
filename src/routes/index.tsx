@@ -415,6 +415,10 @@ function Landing() {
                 <h3 className={`mt-3 font-serif text-3xl ${p.featured ? "text-primary-foreground" : "text-primary"}`}>
                   {p.name}
                 </h3>
+                <div className="mt-4 flex items-baseline gap-1">
+                  <span className={`font-serif text-4xl ${p.featured ? "text-gold" : "text-primary"}`}>{p.price}</span>
+                  <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.cadence}</span>
+                </div>
                 <p className={`mt-3 text-sm ${p.featured ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                   {p.desc}
                 </p>
