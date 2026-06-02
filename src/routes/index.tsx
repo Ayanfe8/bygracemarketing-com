@@ -95,6 +95,7 @@ const packages = [
     name: "Starter Support",
     tag: "Foundations",
     price: "₦150,000",
+    priceUsd: "$170",
     cadence: "/month",
     desc: "For businesses that need simple brand and marketing improvements.",
     features: ["Brand messaging refresh", "Basic design support", "Social media direction", "LinkedIn optimisation"],
@@ -104,6 +105,7 @@ const packages = [
     tag: "Most popular",
     featured: true,
     price: "₦350,000",
+    priceUsd: "$300",
     cadence: "/month",
     desc: "For businesses that need consistent marketing execution.",
     features: [
@@ -118,6 +120,7 @@ const packages = [
     name: "Premium Support",
     tag: "Full service",
     price: "₦650,000",
+    priceUsd: "$500",
     cadence: "/month",
     desc: "For businesses that need full marketing execution, ongoing.",
     features: [
@@ -428,11 +431,16 @@ function LandingInner() {
                 <h3 className={`mt-3 font-serif text-3xl ${p.featured ? "text-primary-foreground" : "text-primary"}`}>
                   {p.name}
                 </h3>
-                <div className="mt-4 flex items-baseline gap-1">
+                <div className="mt-4 flex flex-col gap-1">
                   {unlocked ? (
                     <>
-                      <span className={`font-serif text-4xl ${p.featured ? "text-gold" : "text-primary"}`}>{p.price}</span>
-                      <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.cadence}</span>
+                      <div className="flex items-baseline gap-1">
+                        <span className={`font-serif text-4xl ${p.featured ? "text-gold" : "text-primary"}`}>{p.price}</span>
+                        <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.cadence}</span>
+                      </div>
+                      <div className={`text-xs ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                        International: <span className={`font-medium ${p.featured ? "text-gold" : "text-primary"}`}>{p.priceUsd}</span>{p.cadence}
+                      </div>
                     </>
                   ) : (
                     <button
@@ -442,7 +450,7 @@ function LandingInner() {
                       aria-label="Unlock pricing"
                     >
                       <Lock className="h-4 w-4" />
-                      ₦ • • • • • •
+                      ₦ • • • • • •  /  $ • • •
                     </button>
                   )}
                 </div>
@@ -524,10 +532,17 @@ function LandingInner() {
                 ))}
                 <tr className="bg-background/50">
                   <td className="px-6 py-5 font-serif text-primary">Monthly investment</td>
-                  {(["₦150,000", "₦350,000", "₦650,000"] as const).map((price, i) => (
+                  {([
+                    { ngn: "₦150,000", usd: "$170" },
+                    { ngn: "₦350,000", usd: "$300" },
+                    { ngn: "₦650,000", usd: "$500" },
+                  ] as const).map((price, i) => (
                     <td key={i} className="px-6 py-5 text-center font-serif text-lg text-primary">
                       {unlocked ? (
-                        price
+                        <div className="flex flex-col items-center">
+                          <span>{price.ngn}</span>
+                          <span className="text-xs text-muted-foreground font-sans mt-1">or {price.usd} (intl.)</span>
+                        </div>
                       ) : (
                         <button
                           type="button"
