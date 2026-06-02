@@ -532,10 +532,17 @@ function LandingInner() {
                 ))}
                 <tr className="bg-background/50">
                   <td className="px-6 py-5 font-serif text-primary">Monthly investment</td>
-                  {(["₦150,000", "₦350,000", "₦650,000"] as const).map((price, i) => (
+                  {([
+                    { ngn: "₦150,000", usd: "$170" },
+                    { ngn: "₦350,000", usd: "$300" },
+                    { ngn: "₦650,000", usd: "$500" },
+                  ] as const).map((price, i) => (
                     <td key={i} className="px-6 py-5 text-center font-serif text-lg text-primary">
                       {unlocked ? (
-                        price
+                        <div className="flex flex-col items-center">
+                          <span>{price.ngn}</span>
+                          <span className="text-xs text-muted-foreground font-sans mt-1">or {price.usd} (intl.)</span>
+                        </div>
                       ) : (
                         <button
                           type="button"
