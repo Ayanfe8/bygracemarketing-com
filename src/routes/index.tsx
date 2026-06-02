@@ -181,7 +181,16 @@ const audiences = [
 ];
 
 function Landing() {
+  return (
+    <PricingUnlockProvider>
+      <LandingInner />
+    </PricingUnlockProvider>
+  );
+}
+
+function LandingInner() {
   const [open, setOpen] = useState(false);
+  const { unlocked, openGate } = usePricingUnlock();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
