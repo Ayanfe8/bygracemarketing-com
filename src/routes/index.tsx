@@ -431,11 +431,16 @@ function LandingInner() {
                 <h3 className={`mt-3 font-serif text-3xl ${p.featured ? "text-primary-foreground" : "text-primary"}`}>
                   {p.name}
                 </h3>
-                <div className="mt-4 flex items-baseline gap-1">
+                <div className="mt-4 flex flex-col gap-1">
                   {unlocked ? (
                     <>
-                      <span className={`font-serif text-4xl ${p.featured ? "text-gold" : "text-primary"}`}>{p.price}</span>
-                      <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.cadence}</span>
+                      <div className="flex items-baseline gap-1">
+                        <span className={`font-serif text-4xl ${p.featured ? "text-gold" : "text-primary"}`}>{p.price}</span>
+                        <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.cadence}</span>
+                      </div>
+                      <div className={`text-xs ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                        International: <span className={`font-medium ${p.featured ? "text-gold" : "text-primary"}`}>{p.priceUsd}</span>{p.cadence}
+                      </div>
                     </>
                   ) : (
                     <button
@@ -445,7 +450,7 @@ function LandingInner() {
                       aria-label="Unlock pricing"
                     >
                       <Lock className="h-4 w-4" />
-                      ₦ • • • • • •
+                      ₦ • • • • • •  /  $ • • •
                     </button>
                   )}
                 </div>
