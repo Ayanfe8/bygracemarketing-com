@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as DfyVsDwyRouteImport } from './routes/dfy-vs-dwy'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 
+const DfyVsDwyRoute = DfyVsDwyRouteImport.update({
+  id: '/dfy-vs-dwy',
+  path: '/dfy-vs-dwy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -25,32 +31,43 @@ const SitemapXmlRoute = SitemapXmlRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/sitemap/xml': typeof SitemapXmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/sitemap/xml': typeof SitemapXmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/sitemap/xml': typeof SitemapXmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sitemap/xml'
+  fullPaths: '/' | '/dfy-vs-dwy' | '/sitemap/xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sitemap/xml'
-  id: '__root__' | '/' | '/sitemap/xml'
+  to: '/' | '/dfy-vs-dwy' | '/sitemap/xml'
+  id: '__root__' | '/' | '/dfy-vs-dwy' | '/sitemap/xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DfyVsDwyRoute: typeof DfyVsDwyRoute
   SitemapXmlRoute: typeof SitemapXmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/dfy-vs-dwy': {
+      id: '/dfy-vs-dwy'
+      path: '/dfy-vs-dwy'
+      fullPath: '/dfy-vs-dwy'
+      preLoaderRoute: typeof DfyVsDwyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -70,8 +87,19 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DfyVsDwyRoute: DfyVsDwyRoute,
   SitemapXmlRoute: SitemapXmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
