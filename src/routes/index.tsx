@@ -446,6 +446,96 @@ function Landing() {
         </div>
       </section>
 
+      {/* Comparison table */}
+      <section className="pb-24 lg:pb-32">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="text-xs uppercase tracking-[0.25em] text-gold">Compare plans</div>
+            <h2 className="mt-3 font-serif text-4xl md:text-5xl text-primary">See what's included.</h2>
+            <p className="mt-4 text-muted-foreground">A side-by-side look at how each package supports your business.</p>
+          </div>
+
+          <div className="mt-12 overflow-x-auto rounded-2xl border border-border bg-card shadow-soft">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-primary text-primary-foreground">
+                <tr>
+                  <th className="px-6 py-5 font-medium">Feature</th>
+                  <th className="px-6 py-5 font-medium text-center">Starter</th>
+                  <th className="px-6 py-5 font-medium text-center bg-navy-deep">
+                    <span className="block">Growth</span>
+                    <span className="text-[10px] uppercase tracking-widest text-gold">Most popular</span>
+                  </th>
+                  <th className="px-6 py-5 font-medium text-center">Premium</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparison.map((row, idx) => (
+                  <tr key={row.feature} className={idx % 2 === 0 ? "bg-background/50" : ""}>
+                    <td className="px-6 py-4 font-medium text-primary">{row.feature}</td>
+                    {(["starter", "growth", "premium"] as const).map((tier) => {
+                      const val = row[tier];
+                      return (
+                        <td key={tier} className="px-6 py-4 text-center text-muted-foreground">
+                          {typeof val === "boolean" ? (
+                            val ? (
+                              <Check className="inline h-4 w-4 text-gold" />
+                            ) : (
+                              <span className="text-border">—</span>
+                            )
+                          ) : (
+                            val
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+                <tr className="bg-background/50">
+                  <td className="px-6 py-5 font-serif text-primary">Monthly investment</td>
+                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦150,000</td>
+                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦350,000</td>
+                  <td className="px-6 py-5 text-center font-serif text-lg text-primary">₦650,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-xs text-center text-muted-foreground">
+            Custom packages available on request. International clients billed in USD equivalent.
+          </p>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-cream py-24 lg:py-32">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="text-xs uppercase tracking-[0.25em] text-gold">Client love</div>
+            <h2 className="mt-3 font-serif text-4xl md:text-5xl text-primary">What clients are saying.</h2>
+            <p className="mt-4 text-muted-foreground">Real results from founders and business owners across Nigeria.</p>
+          </div>
+
+          <div className="mt-14 grid md:grid-cols-2 gap-6">
+            {testimonials.map((t) => (
+              <figure
+                key={t.name}
+                className="rounded-2xl bg-card border border-border p-8 shadow-soft flex flex-col"
+              >
+                <div className="text-gold text-3xl font-serif leading-none">"</div>
+                <blockquote className="mt-2 text-base text-foreground/90 italic leading-relaxed flex-1">
+                  {t.quote}
+                </blockquote>
+                <figcaption className="mt-6 pt-6 border-t border-border">
+                  <div className="font-serif text-primary text-lg">{t.name}</div>
+                  <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">{t.role}</div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+
       {/* Big CTA */}
       <section className="bg-primary text-primary-foreground py-24">
         <div className="mx-auto max-w-4xl px-6 text-center">
