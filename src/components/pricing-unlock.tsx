@@ -118,6 +118,7 @@ export function PricingUnlockProvider({ children }: { children: ReactNode }) {
                     key={rc.file}
                     href={`/rate-cards/${rc.file}`}
                     download
+                    onClick={() => trackEvent("rate_card_download", { file: rc.file })}
                     className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 hover:border-gold transition-colors group"
                   >
                     <span className="text-sm text-primary font-medium">{rc.label}</span>
