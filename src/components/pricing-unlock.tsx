@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { notifyLead } from "@/lib/notify-lead.functions";
+import { trackEvent } from "@/lib/analytics";
 
 const STORAGE_KEY = "dfy-rate-card-unlocked";
 
@@ -91,6 +92,7 @@ export function PricingUnlockProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(STORAGE_KEY, "1");
     setUnlocked(true);
     setJustUnlocked(true);
+    trackEvent("rate_card_unlocked", { source });
     toast.success("Rate card unlocked. Pricing is now visible.");
   };
 
