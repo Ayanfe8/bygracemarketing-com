@@ -142,26 +142,26 @@ const testimonials = [
   {
     quote:
       "Before working with Grace, my LinkedIn was just sitting there. Within two months, three serious clients reached out — one of them is now on retainer. She really gets it.",
-    name: "Chinonso Okafor",
-    role: "Founder, Lagos-based HR Consultancy",
+    name: "Chinonso",
+    role: "Founder",
   },
   {
     quote:
       "I run a small skincare brand in Abuja and I was tired of posting and getting nothing back. Grace took over the strategy and our DMs have not been the same since. Sales doubled by the third month.",
-    name: "Adaeze Nwosu",
-    role: "CEO, Aṣọ Glow Skincare",
+    name: "Adaeze",
+    role: "CEO",
   },
   {
     quote:
       "Honestly, I was sceptical at first. But the brand refresh and email sequence she set up brought in clients I had been chasing for over a year. Worth every kobo.",
-    name: "Tunde Bakare",
-    role: "Principal Partner, Bakare & Associates",
+    name: "Tunde",
+    role: "Principal Partner",
   },
   {
     quote:
       "Grace is calm, organised and very strategic. She helped me stop guessing and start showing up properly online. My business finally looks like the business I always knew it could be.",
-    name: "Folake Adeyemi",
-    role: "Interior Designer, Ibadan",
+    name: "Folake",
+    role: "Interior Designer",
   },
 ];
 
