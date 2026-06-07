@@ -85,7 +85,7 @@ const services = [
   },
   {
     icon: Sparkles,
-    title: "Content Direction",
+    title: "Content Marketing",
     desc: "Know exactly what to post, why, and how — a structured content plan that supports your growth goals.",
     fit: "For founders tired of guessing what to say.",
   },
