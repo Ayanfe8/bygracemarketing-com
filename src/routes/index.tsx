@@ -254,7 +254,7 @@ function InteractiveHeroPortrait() {
   );
 }
 
-
+function Landing() {
   return (
     <PricingUnlockProvider>
       <LandingInner />
