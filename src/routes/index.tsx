@@ -191,7 +191,70 @@ const audiences = [
   "Local businesses",
 ];
 
-function Landing() {
+function InteractiveHeroPortrait() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [t, setT] = useState({ rx: 0, ry: 0, tx: 0, ty: 0, gx: 50, gy: 50, active: false });
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    const dx = px - 0.5;
+    const dy = py - 0.5;
+    setT({
+      rx: -dy * 10,
+      ry: dx * 12,
+      tx: dx * 14,
+      ty: dy * 14,
+      gx: px * 100,
+      gy: py * 100,
+      active: true,
+    });
+  };
+
+  const handleLeave = () =>
+    setT({ rx: 0, ry: 0, tx: 0, ty: 0, gx: 50, gy: 50, active: false });
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-elegant cursor-pointer"
+      style={{
+        perspective: "1000px",
+        transform: `perspective(1000px) rotateX(${t.rx}deg) rotateY(${t.ry}deg) scale(${t.active ? 1.03 : 1})`,
+        transition: t.active ? "transform 120ms ease-out" : "transform 500ms ease-out",
+        willChange: "transform",
+      }}
+    >
+      <img
+        src={heroImg}
+        alt="Grace, founder of Done For You by Grace"
+        className="h-full w-full object-cover object-top"
+        style={{
+          transform: `translate3d(${t.tx}px, ${t.ty}px, 0) scale(1.08)`,
+          transition: t.active ? "transform 120ms ease-out" : "transform 500ms ease-out",
+          willChange: "transform",
+        }}
+        draggable={false}
+      />
+      <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent pointer-events-none" />
+      <div
+        className="absolute inset-0 pointer-events-none mix-blend-soft-light"
+        style={{
+          background: `radial-gradient(circle at ${t.gx}% ${t.gy}%, oklch(0.95 0.08 60 / 0.55), transparent 55%)`,
+          opacity: t.active ? 1 : 0,
+          transition: "opacity 300ms ease-out",
+        }}
+      />
+    </div>
+  );
+}
+
+
   return (
     <PricingUnlockProvider>
       <LandingInner />
