@@ -302,15 +302,12 @@ function LandingInner() {
           </div>
 
           <div className="lg:col-span-5 relative">
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-elegant">
-              <img src={heroImg} alt="Grace, founder of Done For You by Grace" className="h-full w-full object-cover object-top" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent" />
-            </div>
-            <div className="absolute -bottom-6 -left-6 bg-card rounded-2xl p-5 shadow-soft border border-border w-56 hidden sm:block">
+            <InteractiveHeroPortrait />
+            <div className="absolute -bottom-6 -left-6 bg-card rounded-2xl p-5 shadow-soft border border-border w-56 hidden sm:block pointer-events-none">
               <div className="text-xs uppercase tracking-widest text-gold">Done For You</div>
               <div className="mt-1 font-serif text-xl text-primary leading-tight">Show up, stand out, grow.</div>
             </div>
-            <div className="absolute -top-4 -right-4 bg-primary text-primary-foreground rounded-full px-4 py-2 text-xs uppercase tracking-widest shadow-elegant hidden sm:block">
+            <div className="absolute -top-4 -right-4 bg-primary text-primary-foreground rounded-full px-4 py-2 text-xs uppercase tracking-widest shadow-elegant hidden sm:block pointer-events-none">
               by Grace
             </div>
           </div>
