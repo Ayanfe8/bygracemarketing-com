@@ -113,8 +113,72 @@ export const notifyLead = createServerFn({ method: "POST" })
       throw new Error("Service temporarily unavailable");
     }
 
+    // Auto-reply to the prospect (contact form only). Errors logged, not thrown.
+    if (isContact) {
+      try {
+        const autoRaw = encodeRaw(
+          data.email,
+          "Thanks for reaching out — let's get your free consultation booked",
+          buildAutoReplyHtml(data.name),
+        );
+        const replyRes = await fetch(`${GATEWAY_URL}/users/me/messages/send`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${lovableKey}`,
+            "X-Connection-Api-Key": gmailKey,
+          },
+          body: JSON.stringify({ raw: autoRaw }),
+        });
+        if (!replyRes.ok) {
+          const text = await replyRes.text().catch(() => "");
+          console.error("Auto-reply send failed:", replyRes.status, text);
+        }
+      } catch (err) {
+        console.error("Auto-reply error:", err);
+      }
+    }
+
     return { ok: true };
   });
+
+const CALENDLY_URL = "https://calendly.com/grayson_/30mins";
+
+function buildAutoReplyHtml(name: string): string {
+  const firstName = escapeHtml(name.split(" ")[0] || name);
+  return `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #0f1b3d; background: #ffffff;">
+      <div style="text-align:center; padding-bottom: 24px; border-bottom: 1px solid #eef0f4;">
+        <h1 style="margin:0; font-family: Georgia, 'Times New Roman', serif; font-size: 26px; color:#0f1b3d; font-weight: 400;">Done For You by Grace</h1>
+        <p style="margin: 6px 0 0; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color:#c9a84c;">Marketing &middot; Strategy &middot; Support</p>
+      </div>
+      <h2 style="margin: 28px 0 12px; font-family: Georgia, serif; font-size: 22px; color:#0f1b3d; font-weight: 400;">Hi ${firstName},</h2>
+      <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.65; color:#334155;">
+        Thank you for reaching out &mdash; your consultation request has landed safely in my inbox, and I'm genuinely excited to learn more about your business.
+      </p>
+      <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.65; color:#334155;">
+        To save us both time, please pick a 30-minute slot that works for you using the link below. We'll talk through where your business is now, where you'd like it to go, and the smartest next step for your marketing.
+      </p>
+      <div style="text-align:center; margin: 32px 0;">
+        <a href="${CALENDLY_URL}" style="display:inline-block; background:#0f1b3d; color:#ffffff; text-decoration:none; padding: 14px 32px; border-radius: 999px; font-size: 15px; font-weight: 600; letter-spacing: 0.3px;">
+          Book my free 30-min consultation
+        </a>
+      </div>
+      <p style="margin: 0 0 8px; font-size: 14px; line-height: 1.65; color:#64748b;">
+        Or copy &amp; paste this link into your browser:<br/>
+        <a href="${CALENDLY_URL}" style="color:#c9a84c; word-break: break-all;">${CALENDLY_URL}</a>
+      </p>
+      <div style="margin: 32px 0 0; padding-top: 24px; border-top: 1px solid #eef0f4; font-size: 14px; line-height: 1.7; color:#475569;">
+        <p style="margin: 0 0 6px;">In the meantime, if there's anything urgent, just reply to this email or message me on WhatsApp.</p>
+        <p style="margin: 16px 0 4px; color:#0f1b3d;"><strong>Grace</strong></p>
+        <p style="margin: 0; font-size: 13px; color:#94a3b8;">Founder, Done For You by Grace<br/>
+          <a href="mailto:bookingswithgrace@gmail.com" style="color:#c9a84c; text-decoration:none;">bookingswithgrace@gmail.com</a> &middot;
+          <a href="https://bygracemarketing.com" style="color:#c9a84c; text-decoration:none;">bygracemarketing.com</a>
+        </p>
+      </div>
+    </div>
+  `.trim();
+}
 
 function escapeHtml(s: string): string {
   return s
