@@ -50,7 +50,9 @@ export const notifyLead = createServerFn({ method: "POST" })
       .eq("email", emailLower)
       .gte("created_at", tenMinutesAgo);
 
-    if (sameEmailCount && sameEmailCount > 0) {
+    // Threshold is >1 because the lead row is inserted before notifyLead runs,
+    // so the just-saved submission itself counts as 1.
+    if (sameEmailCount && sameEmailCount > 1) {
       console.warn("Rate limit hit for email:", emailLower);
       throw new Error("Please wait a few minutes before submitting again.");
     }
