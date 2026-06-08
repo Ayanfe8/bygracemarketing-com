@@ -195,12 +195,12 @@ function InteractiveHeroPortrait() {
   const ref = useRef<HTMLDivElement>(null);
   const [t, setT] = useState({ rx: 0, ry: 0, tx: 0, ty: 0, gx: 50, gy: 50, active: false });
 
-  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const applyFromPoint = (clientX: number, clientY: number) => {
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width;
-    const py = (e.clientY - r.top) / r.height;
+    const px = (clientX - r.left) / r.width;
+    const py = (clientY - r.top) / r.height;
     const dx = px - 0.5;
     const dy = py - 0.5;
     setT({
@@ -214,6 +214,17 @@ function InteractiveHeroPortrait() {
     });
   };
 
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    applyFromPoint(e.clientX, e.clientY);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    if (touch) {
+      applyFromPoint(touch.clientX, touch.clientY);
+    }
+  };
+
   const handleLeave = () =>
     setT({ rx: 0, ry: 0, tx: 0, ty: 0, gx: 50, gy: 50, active: false });
 
@@ -222,6 +233,8 @@ function InteractiveHeroPortrait() {
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleLeave}
       className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-elegant cursor-pointer"
       style={{
         perspective: "1000px",
