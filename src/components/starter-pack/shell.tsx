@@ -35,7 +35,7 @@ export function StarterShell({ children }: { children: ReactNode }) {
 export function BookCover({ kicker, title, sub }: { kicker: string; title: string; sub: string }) {
   return (
     <div
-      className="relative aspect-[6/9] w-full max-w-[220px] bg-ink p-3 sm:p-5 text-ivory shadow-[0_18px_40px_-18px_var(--ink)]"
+      className="relative aspect-[6/9] w-full max-w-[220px] overflow-hidden bg-ink p-3 sm:p-5 text-ivory shadow-[0_18px_40px_-18px_var(--ink)]"
       role="img"
       aria-label={`Cover illustration: ${title}`}
     >

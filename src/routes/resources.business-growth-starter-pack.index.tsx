@@ -62,7 +62,7 @@ function StarterPackPage() {
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal">
             Two practical workbooks to help founders identify the gaps in their business growth and take focused action.
           </p>
-          <div className="mt-10 flex items-end gap-4">
+          <div className="mt-10 grid max-w-[460px] grid-cols-2 items-end gap-4">
             <BookCover {...BOOKS[0]} />
             <div className="w-full max-w-[200px] translate-y-4">
               <BookCover {...BOOKS[1]} />
