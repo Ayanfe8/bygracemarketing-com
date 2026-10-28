@@ -46,10 +46,10 @@ function StarterPackPage() {
           <p className="mt-6 font-serif text-xl text-ink">
             Find the gaps. <span className="text-charcoal">·</span> Know what matters. <span className="text-charcoal">·</span> Take focused action.
           </p>
-          <a href="#get" className="mt-8 inline-block bg-ink px-7 py-4 text-sm font-medium tracking-wide text-ivory hover:bg-ink/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:hidden">
+          <a href="#get" className="mt-8 inline-block bg-ink px-7 py-4 text-sm font-medium tracking-wide text-ivory hover:bg-ink/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">
             Get my free Starter Pack
           </a>
-          <p className="mt-3 text-sm text-charcoal md:hidden">Two free workbooks. No fluff. Just useful direction.</p>
+          <p className="mt-3 text-sm text-charcoal">Two free workbooks. No fluff. Just useful direction.</p>
         </div>
         <div className="grid grid-cols-2 gap-4 self-center">
           {BOOKS.map((b, i) => (
