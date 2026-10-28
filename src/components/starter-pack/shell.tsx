@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Globe } from "lucide-react";
 import type { ReactNode } from "react";
 import logoAsset from "@/assets/dfy-logo.png.asset.json";
 
@@ -20,13 +21,19 @@ export function StarterShell({ children }: { children: ReactNode }) {
         </div>
       </header>
       <main>{children}</main>
-      <footer className="mt-20 border-t border-stone">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-8 text-sm text-charcoal sm:flex-row sm:justify-between">
-          <p>Written by Grace Olubunmi Arungbemi · Done For You by Grace</p>
-          <p className="flex gap-4">
+      <footer className="mt-16 border-t border-stone">
+        <div className="mx-auto grid max-w-6xl gap-3 px-5 py-6 text-sm leading-relaxed text-charcoal sm:grid-cols-2 sm:items-center sm:gap-8">
+          <div className="min-w-0">
+            <p>Written by Grace Olubunmi Arungbemi</p>
+            <p className="text-ink">Done For You by Grace</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 sm:justify-end">
             <Link to="/privacy" className="hover:text-ink hover:underline">Privacy notice</Link>
-            <a href="https://bygracemarketing.com" className="hover:text-ink hover:underline">bygracemarketing.com</a>
-          </p>
+            <a href="https://bygracemarketing.com" className="inline-flex items-center gap-1.5 hover:text-ink hover:underline">
+              <Globe className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              bygracemarketing.com
+            </a>
+          </div>
         </div>
       </footer>
     </div>
