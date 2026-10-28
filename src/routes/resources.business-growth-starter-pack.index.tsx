@@ -27,8 +27,8 @@ export const Route = createFileRoute("/resources/business-growth-starter-pack/")
 });
 
 const BOOKS = [
-  { n: "01", mark: "07.", title: "The 7-Point Business Growth Audit", meta: "21 diagnostic questions · A 42-point readiness score" },
-  { n: "02", mark: "21.", title: "The Founder’s Growth Readiness Checklist", meta: "21 practical checks · A 30-day action plan" },
+  { n: "01", mark: "07.", title: "The 7-Point Business Growth Audit", meta: "21 questions, a 42-point score, and a clearer picture of where your business needs attention." },
+  { n: "02", mark: "21.", title: "The Founder’s Growth Readiness Checklist", meta: "21 practical checks and a 30-day planner to help you act on what you discover." },
 ];
 
 function StarterPackPage() {
@@ -41,15 +41,12 @@ function StarterPackPage() {
             Before you spend more on marketing, find out what’s holding your business back.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal">
-            You can be visible, consistent and still struggle to convert attention into customers. These two practical workbooks help you spot the gaps — and decide what to fix first.
-          </p>
-          <p className="mt-6 font-serif text-xl text-ink">
-            Find the gaps. <span className="text-charcoal">·</span> Know what matters. <span className="text-charcoal">·</span> Take focused action.
+            You could be posting consistently, paying for ads and showing up everywhere — yet still wondering why the enquiries aren’t turning into customers. Before you do more, find out what needs fixing.
           </p>
           <a href="#get" className="mt-8 inline-block bg-ink px-7 py-4 text-sm font-medium tracking-wide text-ivory hover:bg-ink/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">
             Get my free Starter Pack
           </a>
-          <p className="mt-3 text-sm text-charcoal">Two free workbooks. No fluff. Just useful direction.</p>
+          <p className="mt-3 text-sm text-charcoal">2 value-packed free workbooks to help you spot the gaps and decide what to work on next.</p>
         </div>
         <div className="grid grid-cols-2 gap-4 self-center">
           {BOOKS.map((b, i) => (
@@ -65,7 +62,7 @@ function StarterPackPage() {
       <section id="get" className="border-t border-stone">
         <div className="mx-auto grid max-w-6xl gap-12 px-5 py-14 md:grid-cols-[1fr_1.1fr] md:gap-16 md:py-20">
           <div>
-            <h2 className="font-serif text-3xl text-ink sm:text-4xl">What’s inside</h2>
+            <h2 className="font-serif text-3xl text-ink sm:text-4xl">What’s inside your free Starter Pack</h2>
             <ul className="mt-8 divide-y divide-stone border-y border-stone">
               {BOOKS.map((b) => (
                 <li key={b.n} className="py-5">
@@ -74,8 +71,8 @@ function StarterPackPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 leading-relaxed text-charcoal">Start with the audit. Then use the checklist to work on your priorities.</p>
-            <p className="mt-4 text-sm text-charcoal">For founders, SME owners, consultants and purpose-led teams who want clearer growth decisions.</p>
+            <p className="mt-6 leading-relaxed text-charcoal">Start with the audit. Use the checklist to take your next steps.</p>
+            <p className="mt-4 text-sm text-charcoal">Made for founders, SME owners, consultants and purpose-led teams.</p>
           </div>
           <LeadForm />
         </div>
@@ -146,8 +143,8 @@ function LeadForm() {
 
   return (
     <form onSubmit={onSubmit} noValidate className="border border-stone bg-card p-6 sm:p-8" aria-describedby="form-note">
-      <h2 className="font-serif text-2xl text-ink">Get my free Starter Pack</h2>
-      <p id="form-note" className="mt-1 text-sm text-charcoal">Two free workbooks. No fluff. Just useful direction.</p>
+      <h2 className="font-serif text-2xl text-ink">Get your free workbooks</h2>
+      <p id="form-note" className="mt-1 text-sm text-charcoal">Enter your name and email to request both resources.</p>
 
       <div className="mt-6 space-y-4">
         <label className="block text-sm text-ink">
