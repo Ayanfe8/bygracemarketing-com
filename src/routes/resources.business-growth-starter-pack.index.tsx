@@ -27,96 +27,58 @@ export const Route = createFileRoute("/resources/business-growth-starter-pack/")
 });
 
 const BOOKS = [
-  {
-    kicker: "Workbook 01",
-    title: "The 7-Point Business Growth Audit",
-    sub: "21 diagnostic questions",
-    body: "21 diagnostic questions across brand positioning, customer understanding, discoverability, marketing effectiveness, sales conversion, retention and growth measurement. Score your business out of 42 and find where to focus.",
-  },
-  {
-    kicker: "Workbook 02",
-    title: "The Founder’s Growth Readiness Checklist",
-    sub: "21 actions · 30-day planner",
-    body: "21 practical actions and a 30-day planner that turns your audit findings into focused improvements.",
-  },
-];
-
-const BENEFITS = [
-  "Identify overlooked gaps",
-  "Understand your priorities",
-  "Take practical next steps",
-  "Revisit every quarter",
+  { n: "01", mark: "07.", title: "The 7-Point Business Growth Audit", meta: "21 diagnostic questions · A 42-point readiness score" },
+  { n: "02", mark: "21.", title: "The Founder’s Growth Readiness Checklist", meta: "21 practical checks · A 30-day action plan" },
 ];
 
 function StarterPackPage() {
   return (
     <StarterShell>
-      <section className="mx-auto grid max-w-6xl gap-12 px-5 pt-12 pb-16 md:grid-cols-[1.15fr_1fr] md:pt-20">
+      <section className="mx-auto grid max-w-6xl gap-12 px-5 pt-10 pb-14 md:grid-cols-[1.2fr_1fr] md:gap-16 md:pt-20 md:pb-20">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-charcoal">
-            A complimentary resource bundle from Done For You by Grace
-          </p>
-          <h1 className="mt-5 font-serif text-4xl leading-[1.08] text-ink sm:text-5xl md:text-[3.4rem]">
-            Your business might not need more marketing. It might need a clearer picture of what is holding it back.
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-charcoal">Free business growth resources</p>
+          <h1 className="mt-5 font-serif text-[2.4rem] leading-[1.05] text-ink sm:text-5xl md:text-[3.5rem]">
+            Before you spend more on marketing, find out what’s holding your business back.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal">
-            Two practical workbooks to help founders identify the gaps in their business growth and take focused action.
+            You can be visible, consistent and still struggle to convert attention into customers. These two practical workbooks help you spot the gaps — and decide what to fix first.
           </p>
-          <div className="mt-10 grid max-w-[460px] grid-cols-2 items-end gap-4">
-            <BookCover {...BOOKS[0]} />
-            <div className="w-full max-w-[200px] translate-y-4">
-              <BookCover {...BOOKS[1]} />
-            </div>
-          </div>
-          <p className="mt-8 text-xs text-charcoal">Cover illustrations are representative of the digital workbooks.</p>
+          <p className="mt-6 font-serif text-xl text-ink">
+            Find the gaps. <span className="text-charcoal">·</span> Know what matters. <span className="text-charcoal">·</span> Take focused action.
+          </p>
+          <a href="#get" className="mt-8 inline-block bg-ink px-7 py-4 text-sm font-medium tracking-wide text-ivory hover:bg-ink/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:hidden">
+            Get my free Starter Pack
+          </a>
+          <p className="mt-3 text-sm text-charcoal md:hidden">Two free workbooks. No fluff. Just useful direction.</p>
         </div>
-        <div id="get" className="md:pt-4">
+        <div className="grid grid-cols-2 gap-4 self-center">
+          {BOOKS.map((b, i) => (
+            <div key={b.n} className={`flex aspect-[6/9] flex-col justify-between border border-ink/80 bg-ink p-4 text-ivory sm:p-6 ${i ? "md:translate-y-8" : ""}`} aria-hidden>
+              <p className="text-[10px] uppercase tracking-[0.22em] text-stone">Workbook {b.n}</p>
+              <p className="font-serif text-5xl leading-none sm:text-6xl">{b.mark}</p>
+              <p className="font-serif text-sm leading-snug text-stone sm:text-base">{b.title}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="get" className="border-t border-stone">
+        <div className="mx-auto grid max-w-6xl gap-12 px-5 py-14 md:grid-cols-[1fr_1.1fr] md:gap-16 md:py-20">
+          <div>
+            <h2 className="font-serif text-3xl text-ink sm:text-4xl">What’s inside</h2>
+            <ul className="mt-8 divide-y divide-stone border-y border-stone">
+              {BOOKS.map((b) => (
+                <li key={b.n} className="py-5">
+                  <p className="font-serif text-xl text-ink">{b.n} — {b.title}</p>
+                  <p className="mt-1 text-sm text-charcoal">{b.meta}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 leading-relaxed text-charcoal">Start with the audit. Then use the checklist to work on your priorities.</p>
+            <p className="mt-4 text-sm text-charcoal">For founders, SME owners, consultants and purpose-led teams who want clearer growth decisions.</p>
+          </div>
           <LeadForm />
         </div>
-      </section>
-
-      <section className="border-y border-stone bg-background/40">
-        <div className="mx-auto grid max-w-6xl gap-px px-5 py-14 md:grid-cols-2 md:gap-12">
-          {BOOKS.map((b) => (
-            <article key={b.title} className="py-6">
-              <p className="text-xs uppercase tracking-[0.2em] text-charcoal">{b.kicker}</p>
-              <h2 className="mt-3 font-serif text-3xl text-ink">{b.title}</h2>
-              <p className="mt-4 leading-relaxed text-charcoal">{b.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 py-16">
-        <h2 className="font-serif text-3xl text-ink">What the Starter Pack helps you do</h2>
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {BENEFITS.map((b, i) => (
-            <li key={b} className="border-t border-ink pt-4">
-              <span className="text-xs text-charcoal">0{i + 1}</span>
-              <p className="mt-2 font-serif text-xl text-ink">{b}</p>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-14 grid gap-8 md:grid-cols-2">
-          <div>
-            <h3 className="font-serif text-2xl text-ink">Who it is for</h3>
-            <p className="mt-3 leading-relaxed text-charcoal">
-              SME founders, business owners, consultants and purpose-led organisations who want a clearer view of where growth is getting stuck.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-serif text-2xl text-ink">A note before you start</h3>
-            <p className="mt-3 leading-relaxed text-charcoal">
-              These are free, self-guided digital workbooks. They are not a personal diagnosis of your business and do not guarantee financial results. They are designed to help you think clearly and act with focus.
-            </p>
-          </div>
-        </div>
-        <a
-          href="#get"
-          className="mt-12 inline-block bg-ink px-7 py-4 text-sm font-medium tracking-wide text-ivory hover:bg-ink/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-        >
-          Get the free Starter Pack
-        </a>
       </section>
     </StarterShell>
   );

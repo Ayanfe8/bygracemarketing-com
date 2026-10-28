@@ -1,13 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import logoAsset from "@/assets/dfy-logo.png.asset.json";
 
 export function StarterShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-ivory text-ink font-sans">
       <header className="border-b border-stone">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <Link to="/" className="font-serif text-xl tracking-tight text-ink">
-            Done For You by Grace
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
+          <Link to="/" className="flex min-w-0 items-center gap-3 text-ink" aria-label="Done For You by Grace — home">
+            <img src={logoAsset.url} alt="" width={48} height={48} className="h-11 w-11 shrink-0 rounded-full object-contain sm:h-12 sm:w-12" />
+            <span className="truncate font-serif text-lg tracking-tight sm:text-xl">Done For You by Grace</span>
           </Link>
           <Link
             to="/"
