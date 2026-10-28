@@ -188,6 +188,20 @@ export function teamNotifyEmail(lead: {
   };
 }
 
+export function confirmEmail(firstName: string, confirmUrl: string, items: string[]) {
+  const name = escapeHtml(firstName);
+  return {
+    subject: "Please confirm your email preferences",
+    html: shell(
+      `<h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:400;font-size:24px;">Hi ${name},</h1>
+       <p style="margin:0 0 14px;font-size:15px;line-height:1.65;color:#525C65;">You asked to receive: ${items.map(escapeHtml).join(" and ")}. Please confirm so we know it was really you.</p>
+       ${button(confirmUrl, "Yes, confirm")}
+       <p style="margin:14px 0 0;font-size:13px;color:#525C65;">If this was not you, ignore this email and nothing will change.</p>`,
+      "Sent because someone entered this address on bygracemarketing.com and ticked an email preference.",
+    ),
+  };
+}
+
 // ---- Marketing nurture (consented contacts only) ----
 
 export type NurtureDay = 2 | 4 | 7;

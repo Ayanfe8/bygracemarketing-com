@@ -7,7 +7,7 @@ import { StarterShell } from "@/components/starter-pack/shell";
 import {
   getStarterPackStatus,
   retryStarterPackDelivery,
-  joinPlaybookWaitlist,
+  requestPlaybookWaitlist,
 } from "@/lib/resource-leads.functions";
 
 export const Route = createFileRoute("/resources/business-growth-starter-pack/thank-you")({
@@ -33,18 +33,18 @@ function ThankYou() {
   const { t } = Route.useSearch();
   const router = useRouter();
   const retry = useServerFn(retryStarterPackDelivery);
-  const join = useServerFn(joinPlaybookWaitlist);
+  const join = useServerFn(requestPlaybookWaitlist);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [waitBusy, setWaitBusy] = useState(false);
-  const [joined, setJoined] = useState(s.waitlist);
+  const [joined, setJoined] = useState(s.waitlistRequested);
 
   if (!s.found || !t) {
     return (
       <StarterShell>
         <section className="mx-auto max-w-2xl px-5 py-24">
           <h1 className="font-serif text-4xl text-ink">Request the Starter Pack first</h1>
-          <p className="mt-4 text-charcoal">We could not find a request linked to this page.</p>
+          <p className="mt-4 text-charcoal">This page has expired or no request is linked to it. Your workbooks are sent by email; if you need them again, request the pack below.</p>
           <Link to="/resources/business-growth-starter-pack" className="mt-8 inline-block bg-ink px-6 py-3 text-sm text-ivory">
             Get the free Starter Pack
           </Link>
@@ -55,7 +55,8 @@ function ThankYou() {
 
   const status = s.delivery;
   const statusText: Record<string, string> = {
-    sent: `We have emailed both workbooks to you${s.firstName ? `, ${s.firstName}` : ""}. If you cannot see it in a few minutes, check your promotions or spam folder.`,
+    sent: "We have emailed both workbooks to the address you entered. If you cannot see it in a few minutes, check your promotions or spam folder.",
+    recent: "Your request is received. This address requested the pack very recently, so we have not sent a duplicate. If nothing has arrived, please email us.",
     failed: "Your request is saved, but we could not send the email just now.",
     not_configured: "Your request is saved. Email delivery is not switched on yet, so no email has been sent.",
     assets_missing: "Your request is saved. The workbooks are being finalised, so no email has been sent yet.",
@@ -103,6 +104,9 @@ function ThankYou() {
               {busy && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />} Try sending again
             </button>
           )}
+          {s.consentRequested && (
+            <p className="mt-3 text-sm">To start receiving insights from Grace, please confirm using the link in the separate confirmation email.</p>
+          )}
           {status !== "sent" && (
             <p className="mt-3 text-sm">
               Need it sooner? Email <a className="underline" href="mailto:bookingswithgrace@gmail.com">bookingswithgrace@gmail.com</a>.
@@ -145,7 +149,7 @@ function ThankYou() {
           <h2 className="font-serif text-xl text-ink">The Visibility-to-Revenue Playbook is coming</h2>
           <p className="mt-2 text-sm text-charcoal">A next-step guide for turning attention into enquiries. Want a note when it is ready?</p>
           {joined ? (
-            <p className="mt-3 text-sm text-ink">You are on the early-access list.</p>
+            <p className="mt-3 text-sm text-ink">Thank you. Please confirm using the link we send to your email to join the early-access list.</p>
           ) : (
             <button onClick={onJoin} disabled={waitBusy}
               className="mt-3 inline-flex items-center gap-2 text-sm text-ink underline underline-offset-4 disabled:opacity-60">

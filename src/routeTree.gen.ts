@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as DfyVsDwyRouteImport } from './routes/dfy-vs-dwy'
+import { Route as ConfirmSubscriptionRouteImport } from './routes/confirm-subscription'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 import { Route as ResourcesBusinessGrowthStarterPackIndexRouteImport } from './routes/resources.business-growth-starter-pack.index'
@@ -31,6 +32,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const DfyVsDwyRoute = DfyVsDwyRouteImport.update({
   id: '/dfy-vs-dwy',
   path: '/dfy-vs-dwy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfirmSubscriptionRoute = ConfirmSubscriptionRouteImport.update({
+  id: '/confirm-subscription',
+  path: '/confirm-subscription',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -63,6 +69,7 @@ const ApiPublicNurtureRunRoute = ApiPublicNurtureRunRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/confirm-subscription': typeof ConfirmSubscriptionRoute
   '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/privacy': typeof PrivacyRoute
   '/unsubscribe': typeof UnsubscribeRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/confirm-subscription': typeof ConfirmSubscriptionRoute
   '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/privacy': typeof PrivacyRoute
   '/unsubscribe': typeof UnsubscribeRoute
@@ -84,6 +92,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/confirm-subscription': typeof ConfirmSubscriptionRoute
   '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/privacy': typeof PrivacyRoute
   '/unsubscribe': typeof UnsubscribeRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/confirm-subscription'
     | '/dfy-vs-dwy'
     | '/privacy'
     | '/unsubscribe'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/confirm-subscription'
     | '/dfy-vs-dwy'
     | '/privacy'
     | '/unsubscribe'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/confirm-subscription'
     | '/dfy-vs-dwy'
     | '/privacy'
     | '/unsubscribe'
@@ -127,6 +139,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConfirmSubscriptionRoute: typeof ConfirmSubscriptionRoute
   DfyVsDwyRoute: typeof DfyVsDwyRoute
   PrivacyRoute: typeof PrivacyRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
@@ -157,6 +170,13 @@ declare module '@tanstack/react-router' {
       path: '/dfy-vs-dwy'
       fullPath: '/dfy-vs-dwy'
       preLoaderRoute: typeof DfyVsDwyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/confirm-subscription': {
+      id: '/confirm-subscription'
+      path: '/confirm-subscription'
+      fullPath: '/confirm-subscription'
+      preLoaderRoute: typeof ConfirmSubscriptionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -199,6 +219,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConfirmSubscriptionRoute: ConfirmSubscriptionRoute,
   DfyVsDwyRoute: DfyVsDwyRoute,
   PrivacyRoute: PrivacyRoute,
   UnsubscribeRoute: UnsubscribeRoute,

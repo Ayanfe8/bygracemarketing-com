@@ -1,2 +1,3 @@
 - Starter Pack funnel leads live in `resource_leads` (service-role only, no client policies); all access goes through `src/lib/resource-leads.functions.ts` — keeps contacts unreadable from the browser.
 - Mail for the funnel goes through `src/lib/resource-mail.server.ts` (Gmail gateway, Resend fallback via RESEND_API_KEY+RESEND_FROM); marketing nurture only via `/api/public/nurture-run`, gated by NURTURE_CRON_SECRET and NURTURE_SENDING_ENABLED — keeps transactional and marketing mail separate.
+- Starter Pack browser state uses short-lived `resource_receipts` tokens only (no subscriber data); consent changes need emailed tokens (`confirm_token` double opt-in, `unsubscribe_token`) — prevents strangers changing others' preferences.

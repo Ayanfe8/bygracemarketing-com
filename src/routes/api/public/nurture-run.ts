@@ -37,7 +37,7 @@ export const Route = createFileRoute("/api/public/nurture-run")({
           const cutoff = new Date(Date.now() - day * 86400_000).toISOString();
           const { data: due } = await supabaseAdmin
             .from("resource_leads")
-            .select("id, email, name, access_token")
+            .select("id, email, name, unsubscribe_token")
             .eq("marketing_consent", true)
             .is("unsubscribed_at", null)
             .is(col, null)
@@ -47,7 +47,7 @@ export const Route = createFileRoute("/api/public/nurture-run")({
           let sent = 0;
           for (const lead of due ?? []) {
             if (dry) { sent++; continue; }
-            const unsub = `${site}/unsubscribe?t=${lead.access_token}`;
+            const unsub = `${site}/unsubscribe?t=${lead.unsubscribe_token}`;
             const { subject, html } = mail.nurtureEmail(day, lead.name.split(" ")[0] || lead.name, unsub);
             const ok = await mail.sendMail({
               to: lead.email,
