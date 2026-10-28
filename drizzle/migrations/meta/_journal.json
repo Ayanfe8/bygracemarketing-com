@@ -8,6 +8,13 @@
       "when": 1793182371097,
       "tag": "0000_resource_leads",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793182774275,
+      "tag": "0001_resource_leads_secure_tokens",
+      "breakpoints": true
     }
   ]
 }

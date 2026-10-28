@@ -50,6 +50,8 @@ export type Database = {
           business_name: string | null
           business_type: string | null
           challenge: string | null
+          confirm_sent_at: string | null
+          confirm_token: string | null
           created_at: string
           delivered_at: string | null
           delivery_attempts: number
@@ -63,8 +65,11 @@ export type Database = {
           nurture_day2_sent_at: string | null
           nurture_day4_sent_at: string | null
           nurture_day7_sent_at: string | null
+          pending_marketing: boolean
+          pending_waitlist: boolean
           request_count: number
           source: string | null
+          unsubscribe_token: string
           unsubscribed_at: string | null
           updated_at: string
           utm_campaign: string | null
@@ -80,6 +85,8 @@ export type Database = {
           business_name?: string | null
           business_type?: string | null
           challenge?: string | null
+          confirm_sent_at?: string | null
+          confirm_token?: string | null
           created_at?: string
           delivered_at?: string | null
           delivery_attempts?: number
@@ -93,8 +100,11 @@ export type Database = {
           nurture_day2_sent_at?: string | null
           nurture_day4_sent_at?: string | null
           nurture_day7_sent_at?: string | null
+          pending_marketing?: boolean
+          pending_waitlist?: boolean
           request_count?: number
           source?: string | null
+          unsubscribe_token?: string
           unsubscribed_at?: string | null
           updated_at?: string
           utm_campaign?: string | null
@@ -110,6 +120,8 @@ export type Database = {
           business_name?: string | null
           business_type?: string | null
           challenge?: string | null
+          confirm_sent_at?: string | null
+          confirm_token?: string | null
           created_at?: string
           delivered_at?: string | null
           delivery_attempts?: number
@@ -123,8 +135,11 @@ export type Database = {
           nurture_day2_sent_at?: string | null
           nurture_day4_sent_at?: string | null
           nurture_day7_sent_at?: string | null
+          pending_marketing?: boolean
+          pending_waitlist?: boolean
           request_count?: number
           source?: string | null
+          unsubscribe_token?: string
           unsubscribed_at?: string | null
           updated_at?: string
           utm_campaign?: string | null
@@ -136,6 +151,53 @@ export type Database = {
           waitlist_playbook?: boolean
         }
         Relationships: []
+      }
+      resource_receipts: {
+        Row: {
+          consent_requested: boolean
+          created_at: string
+          delivery_status: string
+          expires_at: string
+          id: string
+          lead_id: string
+          retry_count: number
+          token: string
+          updated_at: string
+          waitlist_requested: boolean
+        }
+        Insert: {
+          consent_requested?: boolean
+          created_at?: string
+          delivery_status?: string
+          expires_at?: string
+          id?: string
+          lead_id: string
+          retry_count?: number
+          token?: string
+          updated_at?: string
+          waitlist_requested?: boolean
+        }
+        Update: {
+          consent_requested?: boolean
+          created_at?: string
+          delivery_status?: string
+          expires_at?: string
+          id?: string
+          lead_id?: string
+          retry_count?: number
+          token?: string
+          updated_at?: string
+          waitlist_requested?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_receipts_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "resource_leads"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
