@@ -56,7 +56,7 @@ function ThankYou() {
   const status = s.delivery;
   const statusText: Record<string, string> = {
     sent: "We have emailed both workbooks to the address you entered. If you cannot see it in a few minutes, check your promotions or spam folder.",
-    recent: "Your request is received. If this address requested the pack recently, the workbooks are already in that inbox — please check your promotions or spam folder.",
+    recent: "Your request is received. This address requested the pack very recently, so we have not sent a duplicate. If nothing has arrived, please email us.",
     failed: "Your request is saved, but we could not send the email just now.",
     not_configured: "Your request is saved. Email delivery is not switched on yet, so no email has been sent.",
     assets_missing: "Your request is saved. The workbooks are being finalised, so no email has been sent yet.",
@@ -107,7 +107,7 @@ function ThankYou() {
           {s.consentRequested && (
             <p className="mt-3 text-sm">To start receiving insights from Grace, please confirm using the link in the separate confirmation email.</p>
           )}
-          {status !== "sent" && status !== "recent" && (
+          {status !== "sent" && (
             <p className="mt-3 text-sm">
               Need it sooner? Email <a className="underline" href="mailto:bookingswithgrace@gmail.com">bookingswithgrace@gmail.com</a>.
             </p>
