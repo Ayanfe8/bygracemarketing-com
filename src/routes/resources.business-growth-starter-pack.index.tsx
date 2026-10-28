@@ -64,7 +64,7 @@ function StarterPackPage() {
           </p>
           <div className="mt-10 flex items-end gap-4">
             <BookCover {...BOOKS[0]} />
-            <div className="w-[85%] max-w-[190px] translate-y-4">
+            <div className="w-full max-w-[200px] translate-y-4">
               <BookCover {...BOOKS[1]} />
             </div>
           </div>

@@ -43,9 +43,9 @@ export function BookCover({ kicker, title, sub }: { kicker: string; title: strin
       <div className="flex h-full flex-col justify-between border border-ivory/25 p-3 sm:p-4">
         <p className="text-[10px] uppercase tracking-[0.22em] text-stone">{kicker}</p>
         <div>
-          <p className="font-serif text-lg leading-tight sm:text-2xl">{title}</p>
+          <p className="font-serif text-base leading-tight sm:text-2xl">{title}</p>
           <div className="my-3 h-px w-10 bg-stone" />
-          <p className="text-[11px] leading-snug text-stone">{sub}</p>
+          <p className="text-[10px] leading-snug text-stone sm:text-[11px]">{sub}</p>
         </div>
         <p className="text-[10px] tracking-wide text-stone">Done For You by Grace</p>
       </div>
