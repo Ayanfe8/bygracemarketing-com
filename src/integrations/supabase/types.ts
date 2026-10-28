@@ -44,6 +44,99 @@ export type Database = {
         }
         Relationships: []
       }
+      resource_leads: {
+        Row: {
+          access_token: string
+          business_name: string | null
+          business_type: string | null
+          challenge: string | null
+          created_at: string
+          delivered_at: string | null
+          delivery_attempts: number
+          delivery_status: string
+          email: string
+          id: string
+          last_requested_at: string
+          marketing_consent: boolean
+          marketing_consent_at: string | null
+          name: string
+          nurture_day2_sent_at: string | null
+          nurture_day4_sent_at: string | null
+          nurture_day7_sent_at: string | null
+          request_count: number
+          source: string | null
+          unsubscribed_at: string | null
+          updated_at: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
+          waitlist_at: string | null
+          waitlist_playbook: boolean
+        }
+        Insert: {
+          access_token?: string
+          business_name?: string | null
+          business_type?: string | null
+          challenge?: string | null
+          created_at?: string
+          delivered_at?: string | null
+          delivery_attempts?: number
+          delivery_status?: string
+          email: string
+          id?: string
+          last_requested_at?: string
+          marketing_consent?: boolean
+          marketing_consent_at?: string | null
+          name: string
+          nurture_day2_sent_at?: string | null
+          nurture_day4_sent_at?: string | null
+          nurture_day7_sent_at?: string | null
+          request_count?: number
+          source?: string | null
+          unsubscribed_at?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+          waitlist_at?: string | null
+          waitlist_playbook?: boolean
+        }
+        Update: {
+          access_token?: string
+          business_name?: string | null
+          business_type?: string | null
+          challenge?: string | null
+          created_at?: string
+          delivered_at?: string | null
+          delivery_attempts?: number
+          delivery_status?: string
+          email?: string
+          id?: string
+          last_requested_at?: string
+          marketing_consent?: boolean
+          marketing_consent_at?: string | null
+          name?: string
+          nurture_day2_sent_at?: string | null
+          nurture_day4_sent_at?: string | null
+          nurture_day7_sent_at?: string | null
+          request_count?: number
+          source?: string | null
+          unsubscribed_at?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+          waitlist_at?: string | null
+          waitlist_playbook?: boolean
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
