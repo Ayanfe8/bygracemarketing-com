@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DfyVsDwyRouteImport } from './routes/dfy-vs-dwy'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
+import { Route as ApiPublicNurtureRunRouteImport } from './routes/api/public/nurture-run'
 
 const DfyVsDwyRoute = DfyVsDwyRouteImport.update({
   id: '/dfy-vs-dwy',
@@ -28,35 +29,49 @@ const SitemapXmlRoute = SitemapXmlRouteImport.update({
   path: '/sitemap/xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicNurtureRunRoute = ApiPublicNurtureRunRouteImport.update({
+  id: '/api/public/nurture-run',
+  path: '/api/public/nurture-run',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/api/public/nurture-run': typeof ApiPublicNurtureRunRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/api/public/nurture-run': typeof ApiPublicNurtureRunRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/sitemap/xml': typeof SitemapXmlRoute
+  '/api/public/nurture-run': typeof ApiPublicNurtureRunRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dfy-vs-dwy' | '/sitemap/xml'
+  fullPaths: '/' | '/dfy-vs-dwy' | '/sitemap/xml' | '/api/public/nurture-run'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dfy-vs-dwy' | '/sitemap/xml'
-  id: '__root__' | '/' | '/dfy-vs-dwy' | '/sitemap/xml'
+  to: '/' | '/dfy-vs-dwy' | '/sitemap/xml' | '/api/public/nurture-run'
+  id:
+    | '__root__'
+    | '/'
+    | '/dfy-vs-dwy'
+    | '/sitemap/xml'
+    | '/api/public/nurture-run'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DfyVsDwyRoute: typeof DfyVsDwyRoute
   SitemapXmlRoute: typeof SitemapXmlRoute
+  ApiPublicNurtureRunRoute: typeof ApiPublicNurtureRunRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +97,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapXmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/nurture-run': {
+      id: '/api/public/nurture-run'
+      path: '/api/public/nurture-run'
+      fullPath: '/api/public/nurture-run'
+      preLoaderRoute: typeof ApiPublicNurtureRunRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +111,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DfyVsDwyRoute: DfyVsDwyRoute,
   SitemapXmlRoute: SitemapXmlRoute,
+  ApiPublicNurtureRunRoute: ApiPublicNurtureRunRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

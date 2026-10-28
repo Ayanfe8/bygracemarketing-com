@@ -62,6 +62,10 @@
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-navy-deep: var(--navy-deep);
+  --color-ivory: var(--ivory);
+  --color-ink: var(--ink);
+  --color-charcoal: var(--charcoal);
+  --color-stone: var(--stone);
   --font-serif: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-script: "Dancing Script", cursive;
@@ -69,6 +73,12 @@
 
 :root {
   --radius: 0.75rem;
+
+  /* Starter Pack editorial palette */
+  --ivory: oklch(0.954 0.007 85);
+  --ink: oklch(0.27 0.045 255);
+  --charcoal: oklch(0.46 0.018 245);
+  --stone: oklch(0.857 0.01 100);
 
   /* DFY Brand: Navy + Rose Gold on warm cream */
   --background: oklch(0.985 0.008 80);
