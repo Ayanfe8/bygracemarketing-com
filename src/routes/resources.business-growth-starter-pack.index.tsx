@@ -146,8 +146,8 @@ function LeadForm() {
 
   return (
     <form onSubmit={onSubmit} noValidate className="border border-stone bg-card p-6 sm:p-8" aria-describedby="form-note">
-      <h2 className="font-serif text-2xl text-ink">Get the free Starter Pack</h2>
-      <p id="form-note" className="mt-1 text-sm text-charcoal">Both workbooks, sent to your inbox.</p>
+      <h2 className="font-serif text-2xl text-ink">Get my free Starter Pack</h2>
+      <p id="form-note" className="mt-1 text-sm text-charcoal">Two free workbooks. No fluff. Just useful direction.</p>
 
       <div className="mt-6 space-y-4">
         <label className="block text-sm text-ink">
