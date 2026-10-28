@@ -6,12 +6,12 @@ export const RESOURCE_FILES = [
   {
     key: "audit",
     title: "The 7-Point Business Growth Audit",
-    path: "/downloads/DFY_7_Point_Business_Growth_Audit_Final.pdf",
+    path: "/downloads/DFY_7_Point_Business_Growth_Audit.pdf",
   },
   {
     key: "checklist",
     title: "The Founder\u2019s Growth Readiness Checklist",
-    path: "/downloads/DFY_Founders_Growth_Readiness_Checklist_Final.pdf",
+    path: "/downloads/DFY_Founders_Growth_Readiness_Checklist.pdf",
   },
 ] as const;
 
