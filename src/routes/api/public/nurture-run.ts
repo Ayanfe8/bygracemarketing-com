@@ -56,7 +56,7 @@ export const Route = createFileRoute("/api/public/nurture-run")({
               headers: { "List-Unsubscribe": `<${unsub}>` },
             });
             if (ok) {
-              await supabaseAdmin.from("resource_leads").update({ [col]: new Date().toISOString() }).eq("id", lead.id);
+              await supabaseAdmin.from("resource_leads").update({ [col]: new Date().toISOString() } as never).eq("id", lead.id);
               sent++;
             }
           }
