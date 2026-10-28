@@ -170,11 +170,11 @@ function LeadForm() {
           ...utm,
         },
       });
-      if (!res.token) {
+      if (!res.receipt) {
         setError("We could not process your request. Please try again.");
         return;
       }
-      navigate({ to: "/resources/business-growth-starter-pack/thank-you", search: { t: res.token } });
+      navigate({ to: "/resources/business-growth-starter-pack/thank-you", search: { t: res.receipt } });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
