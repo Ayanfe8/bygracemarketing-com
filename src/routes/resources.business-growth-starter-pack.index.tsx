@@ -162,38 +162,37 @@ function LeadForm() {
             aria-invalid={!!fieldErr.email} aria-describedby={fieldErr.email ? "err-email" : undefined} />
           {fieldErr.email && <span id="err-email" className="mt-1 block text-xs text-destructive">{fieldErr.email}</span>}
         </label>
-        <label className="block text-sm text-ink">
-          Business name <span className="text-charcoal">(optional)</span>
-          <input name="businessName" autoComplete="organization" maxLength={200} className={inputCls} />
-        </label>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm text-ink">
-            Business type <span className="text-charcoal">(optional)</span>
-            <select name="businessType" defaultValue="" className={inputCls}>
-              <option value="">Select…</option>
-              {BUSINESS_TYPES.map((t) => <option key={t}>{t}</option>)}
-            </select>
-          </label>
-          <label className="block text-sm text-ink">
-            Greatest challenge <span className="text-charcoal">(optional)</span>
-            <select name="challenge" defaultValue="" className={inputCls}>
-              <option value="">Select…</option>
-              {CHALLENGES.map((t) => <option key={t}>{t}</option>)}
-            </select>
-          </label>
-        </div>
+        <details className="group border-t border-stone pt-4">
+          <summary className="cursor-pointer text-sm text-ink underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-ink">
+            Tell us a little about your business (optional)
+          </summary>
+          <div className="mt-4 space-y-4">
+            <label className="block text-sm text-ink">
+              Business name
+              <input name="businessName" autoComplete="organization" maxLength={200} className={inputCls} />
+            </label>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label className="block text-sm text-ink">
+                Business type
+                <select name="businessType" defaultValue="" className={inputCls}>
+                  <option value="">Select…</option>
+                  {BUSINESS_TYPES.map((t) => <option key={t}>{t}</option>)}
+                </select>
+              </label>
+              <label className="block text-sm text-ink">
+                Greatest challenge
+                <select name="challenge" defaultValue="" className={inputCls}>
+                  <option value="">Select…</option>
+                  {CHALLENGES.map((t) => <option key={t}>{t}</option>)}
+                </select>
+              </label>
+            </div>
+          </div>
+        </details>
         {/* Honeypot */}
         <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
           <label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
         </div>
-        <label className="flex gap-3 text-sm leading-snug text-charcoal">
-          <input type="checkbox" name="marketing" className="mt-0.5 h-4 w-4 shrink-0 accent-ink" />
-          <span>Yes, send me practical marketing insights, resources and occasional offers from Done For You by Grace. I can unsubscribe anytime.</span>
-        </label>
-        <label className="flex gap-3 text-sm leading-snug text-charcoal">
-          <input type="checkbox" name="waitlist" className="mt-0.5 h-4 w-4 shrink-0 accent-ink" />
-          <span>Tell me when The Visibility-to-Revenue Playbook is available (early access only, no other emails).</span>
-        </label>
       </div>
 
       {error && <p role="alert" className="mt-5 border-l-2 border-destructive pl-3 text-sm text-destructive">{error}</p>}
@@ -201,11 +200,23 @@ function LeadForm() {
       <button type="submit" disabled={busy}
         className="mt-6 flex w-full items-center justify-center gap-2 bg-ink px-6 py-4 text-sm font-medium tracking-wide text-ivory hover:bg-ink/90 disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">
         {busy && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
-        {busy ? "Sending…" : "Get the free Starter Pack"}
+        {busy ? "Sending…" : "Get my free Starter Pack"}
       </button>
-      <p className="mt-4 text-xs text-charcoal">
-        The download is free whether or not you tick the boxes. See our <Link to="/privacy" className="underline">privacy notice</Link>.
-      </p>
+      <p className="mt-3 text-center text-xs text-charcoal">Free resources. No payment details required.</p>
+
+      <div className="mt-6 space-y-3 border-t border-stone pt-5">
+        <label className="flex gap-3 text-xs leading-snug text-charcoal">
+          <input type="checkbox" name="marketing" className="mt-0.5 h-4 w-4 shrink-0 accent-ink" />
+          <span>Send me occasional marketing insights, resources and offers from Done For You by Grace. Unsubscribe anytime.</span>
+        </label>
+        <label className="flex gap-3 text-xs leading-snug text-charcoal">
+          <input type="checkbox" name="waitlist" className="mt-0.5 h-4 w-4 shrink-0 accent-ink" />
+          <span>Tell me when The Visibility-to-Revenue Playbook is available (no other emails).</span>
+        </label>
+        <p className="text-xs text-charcoal">
+          Optional — your workbooks are free either way. <Link to="/privacy" className="underline">Privacy notice</Link>.
+        </p>
+      </div>
     </form>
   );
 }
