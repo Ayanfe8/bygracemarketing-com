@@ -35,15 +35,15 @@ export function StarterShell({ children }: { children: ReactNode }) {
 export function BookCover({ kicker, title, sub }: { kicker: string; title: string; sub: string }) {
   return (
     <div
-      className="relative aspect-[6/9] w-full max-w-[220px] bg-ink p-5 text-ivory shadow-[0_18px_40px_-18px_var(--ink)]"
+      className="relative aspect-[6/9] w-full max-w-[220px] bg-ink p-3 sm:p-5 text-ivory shadow-[0_18px_40px_-18px_var(--ink)]"
       role="img"
       aria-label={`Cover illustration: ${title}`}
     >
       <div className="absolute inset-y-0 left-0 w-2 bg-charcoal/40" aria-hidden />
-      <div className="flex h-full flex-col justify-between border border-ivory/25 p-4">
+      <div className="flex h-full flex-col justify-between border border-ivory/25 p-3 sm:p-4">
         <p className="text-[10px] uppercase tracking-[0.22em] text-stone">{kicker}</p>
         <div>
-          <p className="font-serif text-2xl leading-tight">{title}</p>
+          <p className="font-serif text-lg leading-tight sm:text-2xl">{title}</p>
           <div className="my-3 h-px w-10 bg-stone" />
           <p className="text-[11px] leading-snug text-stone">{sub}</p>
         </div>
