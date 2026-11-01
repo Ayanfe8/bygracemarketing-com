@@ -9,29 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as DfyVsDwyRouteImport } from './routes/dfy-vs-dwy'
-import { Route as ConfirmSubscriptionRouteImport } from './routes/confirm-subscription'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConfirmSubscriptionRouteImport } from './routes/confirm-subscription'
+import { Route as DfyVsDwyRouteImport } from './routes/dfy-vs-dwy'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
+import { Route as ApiPublicNurtureRunRouteImport } from './routes/api/public/nurture-run'
 import { Route as ResourcesBusinessGrowthStarterPackIndexRouteImport } from './routes/resources.business-growth-starter-pack.index'
 import { Route as ResourcesBusinessGrowthStarterPackThankYouRouteImport } from './routes/resources.business-growth-starter-pack.thank-you'
-import { Route as ApiPublicNurtureRunRouteImport } from './routes/api/public/nurture-run'
 
-const UnsubscribeRoute = UnsubscribeRouteImport.update({
-  id: '/unsubscribe',
-  path: '/unsubscribe',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DfyVsDwyRoute = DfyVsDwyRouteImport.update({
-  id: '/dfy-vs-dwy',
-  path: '/dfy-vs-dwy',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfirmSubscriptionRoute = ConfirmSubscriptionRouteImport.update({
@@ -39,14 +29,29 @@ const ConfirmSubscriptionRoute = ConfirmSubscriptionRouteImport.update({
   path: '/confirm-subscription',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const DfyVsDwyRoute = DfyVsDwyRouteImport.update({
+  id: '/dfy-vs-dwy',
+  path: '/dfy-vs-dwy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UnsubscribeRoute = UnsubscribeRouteImport.update({
+  id: '/unsubscribe',
+  path: '/unsubscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapXmlRoute = SitemapXmlRouteImport.update({
   id: '/sitemap/xml',
   path: '/sitemap/xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicNurtureRunRoute = ApiPublicNurtureRunRouteImport.update({
+  id: '/api/public/nurture-run',
+  path: '/api/public/nurture-run',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResourcesBusinessGrowthStarterPackIndexRoute =
@@ -61,11 +66,6 @@ const ResourcesBusinessGrowthStarterPackThankYouRoute =
     path: '/resources/business-growth-starter-pack/thank-you',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicNurtureRunRoute = ApiPublicNurtureRunRouteImport.update({
-  id: '/api/public/nurture-run',
-  path: '/api/public/nurture-run',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -151,25 +151,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/unsubscribe': {
-      id: '/unsubscribe'
-      path: '/unsubscribe'
-      fullPath: '/unsubscribe'
-      preLoaderRoute: typeof UnsubscribeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dfy-vs-dwy': {
-      id: '/dfy-vs-dwy'
-      path: '/dfy-vs-dwy'
-      fullPath: '/dfy-vs-dwy'
-      preLoaderRoute: typeof DfyVsDwyRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/confirm-subscription': {
@@ -179,11 +165,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfirmSubscriptionRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/dfy-vs-dwy': {
+      id: '/dfy-vs-dwy'
+      path: '/dfy-vs-dwy'
+      fullPath: '/dfy-vs-dwy'
+      preLoaderRoute: typeof DfyVsDwyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/unsubscribe': {
+      id: '/unsubscribe'
+      path: '/unsubscribe'
+      fullPath: '/unsubscribe'
+      preLoaderRoute: typeof UnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap/xml': {
@@ -191,6 +191,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap/xml'
       fullPath: '/sitemap/xml'
       preLoaderRoute: typeof SitemapXmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/nurture-run': {
+      id: '/api/public/nurture-run'
+      path: '/api/public/nurture-run'
+      fullPath: '/api/public/nurture-run'
+      preLoaderRoute: typeof ApiPublicNurtureRunRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resources/business-growth-starter-pack/': {
@@ -205,13 +212,6 @@ declare module '@tanstack/react-router' {
       path: '/resources/business-growth-starter-pack/thank-you'
       fullPath: '/resources/business-growth-starter-pack/thank-you'
       preLoaderRoute: typeof ResourcesBusinessGrowthStarterPackThankYouRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/nurture-run': {
-      id: '/api/public/nurture-run'
-      path: '/api/public/nurture-run'
-      fullPath: '/api/public/nurture-run'
-      preLoaderRoute: typeof ApiPublicNurtureRunRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
