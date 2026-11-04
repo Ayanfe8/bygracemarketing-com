@@ -13,7 +13,7 @@ Your leads are saved in your project's backend (Lovable Cloud). To see them in L
 
 ## Steps
 1. A Google Sheets connect card appears. Sign in with the Google account that should own the sheet.
-2. I create the sheet "DFY by Grace – Leads" with both tabs. Or you can paste a link to a sheet you already have.
+2. I use the Google Sheet you shared and add the two tabs with headers. Nothing already in the sheet is changed.
 3. I submit one Starter Pack test and one consultation test, check both rows appear in the sheet, then remove the test entries.
 4. No publishing until you confirm.
 
