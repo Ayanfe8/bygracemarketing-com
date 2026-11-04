@@ -15,7 +15,8 @@ export const RESOURCE_FILES = [
   },
 ] as const;
 
-export const TEAM_INBOX = "bookingswithgrace@gmail.com";
+export const TEAM_INBOX = "hello@bygracemarketing.com";
+export const REPLY_TO = "hello@bygracemarketing.com";
 const GMAIL_GATEWAY = "https://connector-gateway.lovable.dev/google_mail/gmail/v1";
 const RESEND_GATEWAY = "https://connector-gateway.lovable.dev/resend";
 
@@ -37,75 +38,82 @@ export function maskEmail(email: string): string {
   return `${(u ?? "").slice(0, 1)}***@${d ?? "?"}`;
 }
 
-/** Which provider can send right now (no secrets returned). */
+const hasResend = () =>
+  !!(process.env.LOVABLE_API_KEY && process.env.RESEND_API_KEY && process.env.RESEND_FROM);
+const hasGmail = () => !!(process.env.LOVABLE_API_KEY && process.env.GOOGLE_MAIL_API_KEY);
+
+/** Which provider can send right now (no secrets returned). Resend (hello@) first. */
 export function mailProvider(): "gmail" | "resend" | null {
-  if (process.env.LOVABLE_API_KEY && process.env.GOOGLE_MAIL_API_KEY) return "gmail";
-  if (process.env.LOVABLE_API_KEY && process.env.RESEND_API_KEY && process.env.RESEND_FROM)
-    return "resend";
+  if (hasResend()) return "resend";
+  if (hasGmail()) return "gmail";
   return null;
 }
 
-/** Sends an HTML email. Returns true only when the provider accepted it. */
-export async function sendMail(opts: {
-  to: string;
-  subject: string;
-  html: string;
-  headers?: Record<string, string>;
-}): Promise<boolean> {
-  const provider = mailProvider();
-  const lovableKey = process.env.LOVABLE_API_KEY;
-  if (!provider || !lovableKey) {
+type MailOpts = { to: string; subject: string; html: string; headers?: Record<string, string> };
+
+async function sendResend(opts: MailOpts): Promise<boolean> {
+  const res = await fetch(`${RESEND_GATEWAY}/emails`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.LOVABLE_API_KEY}`,
+      "X-Connection-Api-Key": process.env.RESEND_API_KEY!,
+    },
+    body: JSON.stringify({
+      from: process.env.RESEND_FROM,
+      to: [opts.to],
+      reply_to: REPLY_TO,
+      subject: opts.subject,
+      html: opts.html,
+      headers: opts.headers,
+    }),
+  });
+  if (!res.ok) {
+    console.error("[mail] resend failed", res.status, (await res.text()).slice(0, 300));
+    return false;
+  }
+  return true;
+}
+
+async function sendGmail(opts: MailOpts): Promise<boolean> {
+  const extra = Object.entries(opts.headers ?? {}).map(([k, v]) => `${k}: ${v}`);
+  const msg = [
+    `To: ${opts.to}`,
+    `Reply-To: ${REPLY_TO}`,
+    `Subject: ${header(opts.subject)}`,
+    ...extra,
+    "MIME-Version: 1.0",
+    'Content-Type: text/html; charset="UTF-8"',
+    "",
+    opts.html,
+  ].join("\r\n");
+  const raw = b64(msg).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  const res = await fetch(`${GMAIL_GATEWAY}/users/me/messages/send`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.LOVABLE_API_KEY}`,
+      "X-Connection-Api-Key": process.env.GOOGLE_MAIL_API_KEY!,
+    },
+    body: JSON.stringify({ raw }),
+  });
+  if (!res.ok) {
+    console.error("[mail] gmail failed", res.status, (await res.text()).slice(0, 300));
+    return false;
+  }
+  return true;
+}
+
+/** Sends an HTML email from hello@ (Resend), falling back to Gmail. True only when accepted. */
+export async function sendMail(opts: MailOpts): Promise<boolean> {
+  if (!mailProvider()) {
     console.error("[mail] no provider configured");
     return false;
   }
   try {
-    if (provider === "gmail") {
-      const extra = Object.entries(opts.headers ?? {}).map(([k, v]) => `${k}: ${v}`);
-      const msg = [
-        `To: ${opts.to}`,
-        `Subject: ${header(opts.subject)}`,
-        ...extra,
-        "MIME-Version: 1.0",
-        'Content-Type: text/html; charset="UTF-8"',
-        "",
-        opts.html,
-      ].join("\r\n");
-      const raw = b64(msg).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-      const res = await fetch(`${GMAIL_GATEWAY}/users/me/messages/send`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${lovableKey}`,
-          "X-Connection-Api-Key": process.env.GOOGLE_MAIL_API_KEY!,
-        },
-        body: JSON.stringify({ raw }),
-      });
-      if (!res.ok) {
-        console.error("[mail] gmail failed", res.status, (await res.text()).slice(0, 300));
-        return false;
-      }
-      return true;
-    }
-    const res = await fetch(`${RESEND_GATEWAY}/emails`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${lovableKey}`,
-        "X-Connection-Api-Key": process.env.RESEND_API_KEY!,
-      },
-      body: JSON.stringify({
-        from: process.env.RESEND_FROM,
-        to: [opts.to],
-        subject: opts.subject,
-        html: opts.html,
-        headers: opts.headers,
-      }),
-    });
-    if (!res.ok) {
-      console.error("[mail] resend failed", res.status, (await res.text()).slice(0, 300));
-      return false;
-    }
-    return true;
+    if (hasResend() && (await sendResend(opts))) return true;
+    if (hasGmail()) return await sendGmail(opts);
+    return false;
   } catch (err) {
     console.error("[mail] send error", err instanceof Error ? err.message : "unknown");
     return false;
