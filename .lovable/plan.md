@@ -5,7 +5,8 @@ Your leads are saved in your project's backend (Lovable Cloud). To see them in L
 
 ## What changes
 - Every new lead also gets added as a row in a Google Sheet you own. The sheet has two tabs:
-  - **Starter Pack**: date, name, email, business name, business type, challenge, marketing opt-in, waitlist, source.
+  - **Starter Pack**: date, name, email, business name, business type, challenge, workbook request status, source. Marketing consent has its own columns: "Marketing opt-in requested" (box ticked on the form) and "Marketing consent confirmed" (filled in only after they click the confirmation email), plus playbook waitlist and unsubscribed. A workbook request alone never counts as consent.
+- **Access:** the sheet stays private. Only people you add by name under Share in Google Sheets (authorised DFY staff) can open it. "Anyone with the link" must stay off. The website only adds rows and can't share the sheet. I'll check the current sharing setting and tell you if it's open.
   - **Consultations & Rate Cards**: date, name, email, business, message, source.
 - Your backend copy and the email alerts to hello@ stay the same, so no lead is lost if Google is ever unavailable.
 - The lead alert email will say "Saved to your Google Sheet" with a link, not the technical table name.
