@@ -109,7 +109,7 @@ function ThankYou() {
           )}
           {status !== "sent" && (
             <p className="mt-3 text-sm">
-              Need it sooner? Email <a className="underline" href="mailto:bookingswithgrace@gmail.com">bookingswithgrace@gmail.com</a>.
+              Need it sooner? Email <a className="underline" href="mailto:hello@bygracemarketing.com">hello@bygracemarketing.com</a>.
             </p>
           )}
           {msg && <p role="alert" className="mt-2 text-sm text-destructive">{msg}</p>}

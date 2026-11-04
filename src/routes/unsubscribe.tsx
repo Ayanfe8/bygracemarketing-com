@@ -44,7 +44,7 @@ function Unsubscribe() {
       <section className="mx-auto max-w-xl px-5 py-24">
         <h1 className="font-serif text-4xl text-ink">Email preferences</h1>
         {!t ? (
-          <p className="mt-4 text-charcoal">Please use the unsubscribe link from one of our emails, or email bookingswithgrace@gmail.com.</p>
+          <p className="mt-4 text-charcoal">Please use the unsubscribe link from one of our emails, or email hello@bygracemarketing.com.</p>
         ) : state === "done" ? (
           <p role="status" className="mt-4 text-charcoal">You have been unsubscribed from marketing and early-access emails.</p>
         ) : (

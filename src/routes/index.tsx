@@ -866,9 +866,9 @@ function LandingInner() {
           </form>
 
           <div className="mt-10 flex items-center justify-center gap-6 text-sm text-muted-foreground">
-            <a href="mailto:bookingswithgrace@gmail.com" className="flex items-center gap-2 hover:text-primary">
+            <a href="mailto:hello@bygracemarketing.com" className="flex items-center gap-2 hover:text-primary">
               <Mail className="h-4 w-4 text-gold" />
-              <span>bookingswithgrace@gmail.com</span>
+              <span>hello@bygracemarketing.com</span>
             </a>
             <a
               href="https://wa.link/z1qjtl"

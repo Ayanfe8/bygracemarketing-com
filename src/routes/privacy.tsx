@@ -30,7 +30,7 @@ function Privacy() {
         <h2 className={h}>Storage and access</h2>
         <p className={p}>Your details are stored in our secure database and are not publicly readable. Emails are sent through our email provider. We do not sell your information.</p>
         <h2 className={h}>Your choices</h2>
-        <p className={p}>Every marketing email includes an unsubscribe link. You can also ask us to access, correct or delete your details by emailing <a className="underline" href="mailto:bookingswithgrace@gmail.com">bookingswithgrace@gmail.com</a>.</p>
+        <p className={p}>Every marketing email includes an unsubscribe link. You can also ask us to access, correct or delete your details by emailing <a className="underline" href="mailto:hello@bygracemarketing.com">hello@bygracemarketing.com</a>.</p>
       </article>
     </StarterShell>
   );
