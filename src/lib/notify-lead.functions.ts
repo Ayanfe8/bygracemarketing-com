@@ -71,6 +71,9 @@ export const notifyLead = createServerFn({ method: "POST" })
       </div>
     `.trim();
 
+    const { appendPricingLead } = await import("@/lib/leads-sheet.server");
+    await appendPricingLead({ name: data.name, email: emailLower, business: data.business, message, source });
+
     const { sendMail, TEAM_INBOX } = await import("@/lib/resource-mail.server");
     const ok = await sendMail({ to: TEAM_INBOX, subject, html });
     if (!ok) throw new Error("Service temporarily unavailable");

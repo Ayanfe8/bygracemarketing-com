@@ -208,6 +208,19 @@ export const submitResourceLead = createServerFn({ method: "POST" })
       }
       leadId = inserted.id;
       status = await deliver(leadId, email, data.name, origin);
+      const sheet = await import("./leads-sheet.server");
+      await sheet.appendResourceLead({
+        leadId,
+        name: data.name,
+        email,
+        businessName: data.businessName,
+        businessType: data.businessType,
+        challenge: data.challenge,
+        workbookStatus: status,
+        source: data.utm_source || data.source || "starter_pack_page",
+        marketingRequested: data.marketingConsent,
+        waitlistRequested: data.waitlist,
+      });
       const mail = await import("./resource-mail.server");
       if (mail.mailProvider()) {
         await mail.sendMail({
@@ -319,6 +332,11 @@ export const confirmSubscription = createServerFn({ method: "POST" })
         updated_at: now,
       })
       .eq("id", lead.id);
+    const sheet = await import("./leads-sheet.server");
+    await sheet.updateResourceConsent(lead.id, {
+      ...(lead.pending_marketing ? { confirmed: true, confirmedAt: now.replace("T", " ").slice(0, 16), unsubscribed: false } : {}),
+      ...(lead.pending_waitlist ? { waitlist: "Confirmed" } : {}),
+    });
     return { ok: true };
   });
 
@@ -342,5 +360,7 @@ export const unsubscribeMarketing = createServerFn({ method: "POST" })
       .eq("unsubscribe_token", data.token)
       .select("id");
     if (error || !rows?.length) throw new Error("This unsubscribe link is not valid.");
+    const sheet = await import("./leads-sheet.server");
+    await sheet.updateResourceConsent(rows[0].id, { confirmed: false, waitlist: "No", unsubscribed: true });
     return { ok: true };
   });

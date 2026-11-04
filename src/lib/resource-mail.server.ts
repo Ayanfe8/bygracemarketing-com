@@ -190,7 +190,7 @@ export function teamNotifyEmail(lead: {
         ${row("Playbook waitlist", lead.waitlist ? "Yes" : "No")}
         ${row("Source", lead.source || "direct")}
        </table>
-       <p style="font-size:13px;color:#525C65;">Contact details are stored in the resource_leads table in your backend.</p>`,
+       <p style="font-size:13px;color:#525C65;">Saved to your <a href="https://docs.google.com/spreadsheets/d/1-L-9ed9zSnD4yDELFcu85vHfXEqxmsURbZhy4Mklb1g/edit" style="color:#525C65;">DFY LEADS Google Sheet</a> (Resource Leads tab). Marketing opt-in shows "requested" until they confirm by email.</p>`,
       "Internal notification from bygracemarketing.com",
     ),
   };
