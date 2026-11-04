@@ -13,8 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConfirmSubscriptionRouteImport } from './routes/confirm-subscription'
 import { Route as DfyVsDwyRouteImport } from './routes/dfy-vs-dwy'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
-import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 import { Route as ApiPublicNurtureRunRouteImport } from './routes/api/public/nurture-run'
 import { Route as ResourcesBusinessGrowthStarterPackIndexRouteImport } from './routes/resources.business-growth-starter-pack.index'
 import { Route as ResourcesBusinessGrowthStarterPackThankYouRouteImport } from './routes/resources.business-growth-starter-pack.thank-you'
@@ -39,14 +39,14 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
   path: '/unsubscribe',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapXmlRoute = SitemapXmlRouteImport.update({
-  id: '/sitemap/xml',
-  path: '/sitemap/xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicNurtureRunRoute = ApiPublicNurtureRunRouteImport.update({
@@ -72,8 +72,8 @@ export interface FileRoutesByFullPath {
   '/confirm-subscription': typeof ConfirmSubscriptionRoute
   '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/sitemap/xml': typeof SitemapXmlRoute
   '/api/public/nurture-run': typeof ApiPublicNurtureRunRoute
   '/resources/business-growth-starter-pack/thank-you': typeof ResourcesBusinessGrowthStarterPackThankYouRoute
   '/resources/business-growth-starter-pack/': typeof ResourcesBusinessGrowthStarterPackIndexRoute
@@ -83,8 +83,8 @@ export interface FileRoutesByTo {
   '/confirm-subscription': typeof ConfirmSubscriptionRoute
   '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/sitemap/xml': typeof SitemapXmlRoute
   '/api/public/nurture-run': typeof ApiPublicNurtureRunRoute
   '/resources/business-growth-starter-pack/thank-you': typeof ResourcesBusinessGrowthStarterPackThankYouRoute
   '/resources/business-growth-starter-pack': typeof ResourcesBusinessGrowthStarterPackIndexRoute
@@ -95,8 +95,8 @@ export interface FileRoutesById {
   '/confirm-subscription': typeof ConfirmSubscriptionRoute
   '/dfy-vs-dwy': typeof DfyVsDwyRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/sitemap/xml': typeof SitemapXmlRoute
   '/api/public/nurture-run': typeof ApiPublicNurtureRunRoute
   '/resources/business-growth-starter-pack/thank-you': typeof ResourcesBusinessGrowthStarterPackThankYouRoute
   '/resources/business-growth-starter-pack/': typeof ResourcesBusinessGrowthStarterPackIndexRoute
@@ -108,8 +108,8 @@ export interface FileRouteTypes {
     | '/confirm-subscription'
     | '/dfy-vs-dwy'
     | '/privacy'
+    | '/sitemap.xml'
     | '/unsubscribe'
-    | '/sitemap/xml'
     | '/api/public/nurture-run'
     | '/resources/business-growth-starter-pack/thank-you'
     | '/resources/business-growth-starter-pack/'
@@ -119,8 +119,8 @@ export interface FileRouteTypes {
     | '/confirm-subscription'
     | '/dfy-vs-dwy'
     | '/privacy'
+    | '/sitemap.xml'
     | '/unsubscribe'
-    | '/sitemap/xml'
     | '/api/public/nurture-run'
     | '/resources/business-growth-starter-pack/thank-you'
     | '/resources/business-growth-starter-pack'
@@ -130,8 +130,8 @@ export interface FileRouteTypes {
     | '/confirm-subscription'
     | '/dfy-vs-dwy'
     | '/privacy'
+    | '/sitemap.xml'
     | '/unsubscribe'
-    | '/sitemap/xml'
     | '/api/public/nurture-run'
     | '/resources/business-growth-starter-pack/thank-you'
     | '/resources/business-growth-starter-pack/'
@@ -142,8 +142,8 @@ export interface RootRouteChildren {
   ConfirmSubscriptionRoute: typeof ConfirmSubscriptionRoute
   DfyVsDwyRoute: typeof DfyVsDwyRoute
   PrivacyRoute: typeof PrivacyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
-  SitemapXmlRoute: typeof SitemapXmlRoute
   ApiPublicNurtureRunRoute: typeof ApiPublicNurtureRunRoute
   ResourcesBusinessGrowthStarterPackThankYouRoute: typeof ResourcesBusinessGrowthStarterPackThankYouRoute
   ResourcesBusinessGrowthStarterPackIndexRoute: typeof ResourcesBusinessGrowthStarterPackIndexRoute
@@ -179,18 +179,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/unsubscribe': {
       id: '/unsubscribe'
       path: '/unsubscribe'
       fullPath: '/unsubscribe'
       preLoaderRoute: typeof UnsubscribeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap/xml': {
-      id: '/sitemap/xml'
-      path: '/sitemap/xml'
-      fullPath: '/sitemap/xml'
-      preLoaderRoute: typeof SitemapXmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/nurture-run': {
@@ -222,8 +222,8 @@ const rootRouteChildren: RootRouteChildren = {
   ConfirmSubscriptionRoute: ConfirmSubscriptionRoute,
   DfyVsDwyRoute: DfyVsDwyRoute,
   PrivacyRoute: PrivacyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   UnsubscribeRoute: UnsubscribeRoute,
-  SitemapXmlRoute: SitemapXmlRoute,
   ApiPublicNurtureRunRoute: ApiPublicNurtureRunRoute,
   ResourcesBusinessGrowthStarterPackThankYouRoute:
     ResourcesBusinessGrowthStarterPackThankYouRoute,

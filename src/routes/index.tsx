@@ -46,7 +46,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:image", content: logoAsset.url },
     ],
     links: [
-      { rel: "canonical", href: "/" },
+      { rel: "canonical", href: "https://bygracemarketing.com/" },
     ],
   }),
   component: Landing,
