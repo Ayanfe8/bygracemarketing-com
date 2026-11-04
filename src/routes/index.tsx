@@ -21,6 +21,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { notifyLead } from "@/lib/notify-lead.functions";
 import { toast } from "sonner";
 import { trackEvent } from "@/lib/analytics";
+import { GuidePopup } from "@/components/guide-popup";
 import logoAsset from "@/assets/dfy-logo.png.asset.json";
 import heroAsset from "@/assets/grace-mac.jpg.asset.json";
 const heroImg = heroAsset.url;
@@ -333,7 +334,9 @@ function LandingInner() {
             <a href="#process" className="hover:text-primary transition-colors">Process</a>
             <a href="#packages" className="hover:text-primary transition-colors">Packages</a>
             <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
+            <Link to="/dfy-vs-dwy" className="hover:text-primary transition-colors">Guide</Link>
           </nav>
+          <Link to="/dfy-vs-dwy" className="md:hidden ml-auto mr-4 text-sm text-primary underline underline-offset-4">Guide</Link>
           <Button asChild variant="default" className="bg-primary hover:bg-navy-deep text-primary-foreground rounded-full px-5">
             <a href="#contact">Book a call</a>
           </Button>
@@ -531,16 +534,10 @@ function LandingInner() {
             <div className="text-xs uppercase tracking-[0.25em] text-gold">Choose your support</div>
             <h2 className="mt-3 font-serif text-4xl md:text-5xl text-primary">Done-for-you packages.</h2>
             <p className="mt-4 text-muted-foreground">Not sure what you need? Book a free consultation and we'll recommend the best fit.</p>
-            <p className="mt-2 text-muted-foreground">
-              Torn between Done For You and Done With You?{" "}
-              <Link
-                to="/dfy-vs-dwy"
-                className="font-medium text-primary underline underline-offset-4 hover:text-navy-deep"
-              >
-                Read the guide
-              </Link>
-              .
-            </p>
+            <p className="mt-4 text-muted-foreground">Torn between Done For You and Done With You?</p>
+            <Button asChild variant="outline" className="mt-3 rounded-full border-primary text-primary">
+              <Link to="/dfy-vs-dwy">Read the DFY vs DWY guide</Link>
+            </Button>
           </div>
 
           <div className="mt-14 grid md:grid-cols-3 gap-6">
@@ -906,11 +903,16 @@ function LandingInner() {
           <p className="text-xs text-muted-foreground uppercase tracking-widest">
             Marketing that grows your business
           </p>
+          <Link to="/dfy-vs-dwy" className="text-xs text-primary underline underline-offset-4">
+            Guide: DFY vs DWY
+          </Link>
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} Done For You by Grace. All rights reserved.
           </p>
         </div>
       </footer>
+
+      <GuidePopup />
 
       <style>{`
         .input-base {
