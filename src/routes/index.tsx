@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useRef } from "react";
 import {
   ArrowRight,
@@ -531,6 +531,16 @@ function LandingInner() {
             <div className="text-xs uppercase tracking-[0.25em] text-gold">Choose your support</div>
             <h2 className="mt-3 font-serif text-4xl md:text-5xl text-primary">Done-for-you packages.</h2>
             <p className="mt-4 text-muted-foreground">Not sure what you need? Book a free consultation and we'll recommend the best fit.</p>
+            <p className="mt-2 text-muted-foreground">
+              Torn between Done For You and Done With You?{" "}
+              <Link
+                to="/dfy-vs-dwy"
+                className="font-medium text-primary underline underline-offset-4 hover:text-navy-deep"
+              >
+                Read the guide
+              </Link>
+              .
+            </p>
           </div>
 
           <div className="mt-14 grid md:grid-cols-3 gap-6">
