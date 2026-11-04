@@ -216,7 +216,21 @@ function ComparisonGuide() {
           </p>
         </section>
 
-        <section className="mt-16 rounded-2xl border border-border bg-card p-8">
+        <section className="mt-16 rounded-2xl border border-border bg-muted/40 p-8">
+          <h2 className="text-2xl font-semibold tracking-tight">
+            Not sure where to start? Get the free Business Growth Starter Pack
+          </h2>
+          <div className="mt-6">
+            <Link
+              to="/resources/business-growth-starter-pack"
+              className="inline-flex items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              Get the free pack
+            </Link>
+          </div>
+        </section>
+
+        <section className="mt-8 rounded-2xl border border-border bg-card p-8">
           <h2 className="text-2xl font-semibold tracking-tight">
             Want marketing handled for you?
           </h2>

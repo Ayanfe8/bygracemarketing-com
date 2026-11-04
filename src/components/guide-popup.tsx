@@ -41,7 +41,7 @@ export function GuidePopup() {
   return (
     <div
       role="dialog"
-      aria-label="Read the DFY vs DWY guide"
+      aria-label="Free Business Growth Starter Pack"
       className="fixed z-50 inset-x-0 bottom-0 sm:inset-x-auto sm:bottom-6 sm:right-6 sm:max-w-sm animate-in slide-in-from-bottom-4 fade-in duration-500"
     >
       <div className="relative border-t sm:border border-border bg-card shadow-xl sm:rounded-2xl px-4 py-3 sm:p-5 flex sm:block items-center gap-3">
@@ -54,15 +54,15 @@ export function GuidePopup() {
         </button>
         <BookOpen className="hidden sm:block h-6 w-6 text-gold" />
         <p className="text-sm text-foreground sm:mt-2 pr-6 flex-1">
-          <span className="font-serif text-primary sm:text-lg">Done For You or Done With You?</span>{" "}
-          <span className="hidden sm:inline text-muted-foreground">Read the 3-minute guide.</span>
+          <span className="font-serif text-primary sm:text-lg">Free: Business Growth Starter Pack.</span>{" "}
+          <span className="hidden sm:inline text-muted-foreground">Two workbooks to find what's holding your growth back.</span>
         </p>
         <Link
-          to="/dfy-vs-dwy"
+          to="/resources/business-growth-starter-pack"
           onClick={dismiss}
           className="shrink-0 mr-6 sm:mr-0 sm:mt-4 inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs sm:text-sm font-medium text-primary-foreground hover:bg-navy-deep"
         >
-          Read the guide
+          Get the free pack
         </Link>
       </div>
     </div>
