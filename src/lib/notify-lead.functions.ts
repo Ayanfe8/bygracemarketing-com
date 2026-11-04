@@ -2,8 +2,6 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
-const NOTIFY_TO = "bookingswithgrace@gmail.com";
-const GATEWAY_URL = "https://connector-gateway.lovable.dev/google_mail/gmail/v1";
 
 const LeadSchema = z.object({
   name: z.string().min(1).max(120),
@@ -13,33 +11,9 @@ const LeadSchema = z.object({
   message: z.string().max(2000).nullable().optional(),
 });
 
-function encodeRaw(to: string, subject: string, html: string): string {
-  const message = [
-    `To: ${to}`,
-    `Subject: ${subject}`,
-    "MIME-Version: 1.0",
-    'Content-Type: text/html; charset="UTF-8"',
-    "",
-    html,
-  ].join("\r\n");
-  const b64 = Buffer.from(message, "utf-8").toString("base64");
-  return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-}
-
 export const notifyLead = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => LeadSchema.parse(input))
   .handler(async ({ data }) => {
-    const lovableKey = process.env.LOVABLE_API_KEY;
-    const gmailKey = process.env.GOOGLE_MAIL_API_KEY;
-    if (!lovableKey) {
-      console.error("Server config error: LOVABLE_API_KEY missing");
-      throw new Error("Service temporarily unavailable");
-    }
-    if (!gmailKey) {
-      console.error("Server config error: GOOGLE_MAIL_API_KEY missing");
-      throw new Error("Service temporarily unavailable");
-    }
-
     const emailLower = data.email.toLowerCase().trim();
     const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
@@ -97,48 +71,18 @@ export const notifyLead = createServerFn({ method: "POST" })
       </div>
     `.trim();
 
-    const raw = encodeRaw(NOTIFY_TO, subject, html);
-
-    const res = await fetch(`${GATEWAY_URL}/users/me/messages/send`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${lovableKey}`,
-        "X-Connection-Api-Key": gmailKey,
-      },
-      body: JSON.stringify({ raw }),
-    });
-
-    if (!res.ok) {
-      const text = await res.text().catch(() => "");
-      console.error("Gmail send failed:", res.status, text);
-      throw new Error("Service temporarily unavailable");
-    }
+    const { sendMail, TEAM_INBOX } = await import("@/lib/resource-mail.server");
+    const ok = await sendMail({ to: TEAM_INBOX, subject, html });
+    if (!ok) throw new Error("Service temporarily unavailable");
 
     // Auto-reply to the prospect (contact form only). Errors logged, not thrown.
     if (isContact) {
-      try {
-        const autoRaw = encodeRaw(
-          data.email,
-          "Thanks for reaching out — let's get your free consultation booked",
-          buildAutoReplyHtml(data.name),
-        );
-        const replyRes = await fetch(`${GATEWAY_URL}/users/me/messages/send`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${lovableKey}`,
-            "X-Connection-Api-Key": gmailKey,
-          },
-          body: JSON.stringify({ raw: autoRaw }),
-        });
-        if (!replyRes.ok) {
-          const text = await replyRes.text().catch(() => "");
-          console.error("Auto-reply send failed:", replyRes.status, text);
-        }
-      } catch (err) {
-        console.error("Auto-reply error:", err);
-      }
+      const replied = await sendMail({
+        to: data.email,
+        subject: "Thanks for reaching out — let's get your free consultation booked",
+        html: buildAutoReplyHtml(data.name),
+      });
+      if (!replied) console.error("Auto-reply send failed");
     }
 
     return { ok: true };
@@ -174,7 +118,7 @@ function buildAutoReplyHtml(name: string): string {
         <p style="margin: 0 0 6px;">In the meantime, if there's anything urgent, just reply to this email or message me on WhatsApp.</p>
         <p style="margin: 16px 0 4px; color:#0f1b3d;"><strong>Grace</strong></p>
         <p style="margin: 0; font-size: 13px; color:#94a3b8;">Founder, Done For You by Grace<br/>
-          <a href="mailto:bookingswithgrace@gmail.com" style="color:#c9a84c; text-decoration:none;">bookingswithgrace@gmail.com</a> &middot;
+          <a href="mailto:hello@bygracemarketing.com" style="color:#c9a84c; text-decoration:none;">hello@bygracemarketing.com</a> &middot;
           <a href="https://bygracemarketing.com" style="color:#c9a84c; text-decoration:none;">bygracemarketing.com</a>
         </p>
       </div>
